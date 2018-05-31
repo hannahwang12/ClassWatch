@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import background from './mountains.jpg';
-import './App.css';
+import background from '../assets/img/mountains.jpg';
+import '../style/App.css';
 
 class App extends Component {
   render() {
