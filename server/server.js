@@ -19,7 +19,7 @@ function customSchedule() {
 	var now = Date.now();
 
 	//  180,000,000 is 30 minutes in milliseconds, so if an interval of 30 minutes has passed since that date, we trigger
-	if (now % 1800000 <= 6000) {
+	if (now % 180000000 <= 6000) {
 
 		//const scraper = require('./scraper.js');
 		//scraper.go_to_page(1179, 'CS', 136);
@@ -27,8 +27,8 @@ function customSchedule() {
 		console.log("creepers");
 	}
 
-// fire the next time in 1min
-	setTimeout(customSchedule, 1000 * 30);
+	// fire the next time in 1min
+	setTimeout(customSchedule, 1000 * 60);
 }
 
 customSchedule();
