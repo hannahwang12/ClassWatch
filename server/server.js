@@ -15,7 +15,7 @@ server.get('/', (req, res) => res.send('Hello World!'));
 
 // when the server receives a POST request to /scrape, execute the code
 server.post('/scrape', function(req, res) {
-	console.log('Message received: ' + req.body.course);
+	console.log(req.body.course);
 });
 
 server.listen(port, () => console.log('Example server up on port 8080'));
