@@ -25,7 +25,7 @@ class SearchContainer extends Component {
       <div className="search">
 				<iframe width="0" height="0" border="0" name="dummyframe" id="dummyframe" display="none" frameBorder="0"></iframe>
         <div className="title">ClassWatch.</div>
-        <form action="http://localhost:8080/scrape" method="post" onSubmit={this.handleSubmit} target="dummyframe" autocomplete="off">
+        <form action="http://localhost:8080/scrape" method="post" onSubmit={this.handleSubmit} target="dummyframe" autoComplete="off">
           <input name="course" type="text" className="search" placeholder="enter a course code" value={this.state.value} onChange={this.handleChange}/> 
         </form>
       </div>

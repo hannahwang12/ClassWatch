@@ -4,6 +4,7 @@ const express = require('express');
 const server = express();
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const scraper = require('./classwatch.js');
 
 const hostname = '127.0.0.1';
 const port = 8080;
@@ -14,8 +15,12 @@ server.use(cors({origin: 'http://localhost:3000'}));
 server.get('/', (req, res) => res.send('Hello World!'));
 
 // when the server receives a POST request to /scrape, execute the code
-server.post('/scrape', function(req, res) {
-	console.log(req.body.course);
+server.post('/scrape', (req, res) => {
+	const course_code = req.body.course;
+	const subject = course_code.split(' ')[0];
+	const course_number = course_code.split(' ')[1];
+	scraper.go_to_page(1179, subject, course_code);
+
 });
 
 server.listen(port, () => console.log('Example server up on port 8080'));
