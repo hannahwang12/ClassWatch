@@ -19,7 +19,7 @@ const go_to_page = async function(term, subject, course_number) {
 
 const scrape_data = async function($, subject, course_number) {
 	const course_title = $('body > p:nth-child(4) > table > tbody > tr:nth-child(2) > td:nth-child(4)').text();
-	const classes = $('body > p:nth-child(4) > table > tbody > tr:nth-child(4) > td:nth-child(2) > table > tbody > tr')
+	const classes = $('table table > tbody > tr')
 		.slice(1)
 		.map((index, row) => {
 			const section = $(row)
