@@ -4,7 +4,7 @@ const express = require('express');
 const server = express();
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const scraper = require('./classwatch.js');
+const scraper = require('./scraper.js');
 
 const hostname = '127.0.0.1';
 const port = 8080;
