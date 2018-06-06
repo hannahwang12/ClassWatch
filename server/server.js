@@ -14,13 +14,14 @@ server.use(cors({origin: 'http://localhost:3000'}));
 
 server.get('/', (req, res) => res.send('Hello World!'));
 
+server.get('/data', (req, res) => res.send("❤"));
 // when the server receives a POST request to /scrape, execute the code
-server.post('/scrape', (req, res) => {
+server.post('/scrape', async (req, res) => {
 	const course_code = req.body.course;
 	const subject = course_code.split(' ')[0];
 	const course_number = course_code.split(' ')[1];
-	scraper.go_to_page(1179, subject, course_code);
-
+	const results = await scraper.go_to_page(1179, subject, course_number);
+	console.log(results);
 });
 
 server.listen(port, () => console.log('Example server up on port 8080'));

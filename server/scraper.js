@@ -86,7 +86,6 @@ const scrape_data = async function($, subject, course_number) {
 			};
 		})
 		.toArray();
-		console.log(classes);
 	return classes;
 }
 

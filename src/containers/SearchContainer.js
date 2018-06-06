@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
 class SearchContainer extends Component {
 
@@ -12,8 +13,8 @@ class SearchContainer extends Component {
 	// on form submit, send the inputted data as a POST request to the web server
 	handleSubmit = (e) => {
 		console.log(this.state.value);
-
 		//make a request to get back scraped data
+		axios.get("http://localhost:8080/data").then(response => console.log(response.data));
 	}
 
 	handleChange = (e) => {
