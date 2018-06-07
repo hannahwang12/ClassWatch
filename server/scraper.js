@@ -5,10 +5,10 @@ const cheerio = require('cheerio');
 const go_to_page = async function(term, subject, course_number) {
 	const body = await nightmare
 		.goto('http://www.adm.uwaterloo.ca/infocour/CIR/SA/under.html')
-		.select('body > form > p:nth-child(13) > select', subject)
+		.select('form > p:nth-child(13) > select', subject)
 		.wait(3000)
-		.type('body > form > p:nth-child(14) > input', course_number)
-		.click('body > form > p:nth-child(15) > input[type="submit"]:nth-child(1)')
+		.type('form > p:nth-child(14) > input', course_number)
+		.click('form input[type="submit"]:nth-child(1)')
 		.wait('body > p:nth-child(4) > table')
 		.evaluate(() => {
 			return document.body.innerHTML;

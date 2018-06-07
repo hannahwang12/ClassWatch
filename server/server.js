@@ -18,8 +18,8 @@ server.get('/data', (req, res) => res.send("❤"));
 // when the server receives a POST request to /scrape, execute the code
 server.post('/scrape', async (req, res) => {
 	const course_code = req.body.course;
-	const subject = course_code.split(' ')[0];
-	const course_number = course_code.split(' ')[1];
+	const subject = course_code.match(/[A-z]+/)[0].trim();
+	const course_number = course_code.match(/\d+/)[0].trim();
 	const results = await scraper.go_to_page(1179, subject, course_number);
 	console.log(results);
 });
