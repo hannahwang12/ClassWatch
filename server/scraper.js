@@ -21,6 +21,14 @@ const scrape_data = async function($, subject, course_number) {
 	const course_title = $('body > p:nth-child(4) > table > tbody > tr:nth-child(2) > td:nth-child(4)').text();
 	const classes = $('table table > tbody > tr')
 		.slice(1)
+		.filter((index, row) => {
+			const section = $(row)
+				.find(':nth-child(2)')
+				.text()
+				.trim();
+			const type = section.substring(0, 3);
+			return (type != 'TST');
+		})
 		.map((index, row) => {
 			const section = $(row)
 				.find(':nth-child(2)')
