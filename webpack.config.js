@@ -1,6 +1,6 @@
 const path = require("path");
 const webpack = require("webpack");
-const bundlePath = path.resolve(__dirname, "dist/");
+const bundlePath = path.resolve(__dirname, "/public");
 
 module.exports = {
   entry: "./src/index.js",
@@ -20,13 +20,13 @@ module.exports = {
   },
   resolve: { extensions: ['*', '.js', '.jsx'] },
   output: {
-    publicPath: bundlePath,
+    path: bundlePath,
     filename: "bundle.js"
   },
   devServer: {
     contentBase: path.join(__dirname,'public'),
     port: 3000,
-    publicPath: "http://localhost:3000/dist"
+    publicPath: "http://localhost:3000/public"
   },
   plugins: [ new webpack.HotModuleReplacementPlugin() ]
 };
