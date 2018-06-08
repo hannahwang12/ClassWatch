@@ -8,6 +8,7 @@ const scraper = require('./scraper.js');
 
 const hostname = '127.0.0.1';
 const port = 8080;
+const tracked_courses = [];
 
 server.use(bodyParser.urlencoded({ extended: true })); 
 server.use(cors({origin: 'http://localhost:3000'}));
@@ -26,6 +27,43 @@ server.post('/scrape', async (req, res) => {
 	results = await scraper.go_to_page(1179, subject, course_number);
 	console.log(results);
 });
+
+
+server.post("/track", async (req, res) => {
+	const course_code = req.body.course;
+	const email = req.body.email;
+	const subject = course_code.match(/[A-z]+/)[0].trim();
+	const course_number = course_code.match(/\d+/)[0].trim();
+	let course_info = {subject:subject, course_number:course_number, email:email};
+	tracked_courses.push(course_info);
+});
+
+server.post("/remove", async (req, res) => {
+	const course_code = req.body.course;
+	const email = req.body.email;
+	const subject = course_code.match(/[A-z]+/)[0].trim();
+	const course_number = course_code.match(/\d+/)[0].trim();
+	let course_info = {subject:subject, course_number:course_number, email:email};
+
+	const len = tracked_courses.length();
+	for (let i = 0; i < len; i++) {
+		if (isEqual(tracked_courses[i], course_info)) {
+			tracked_courses.splice(i, 1);
+		}
+	}
+});
+
+function isEqual(a, b) {
+	try {
+		if ((a.subject == b.subject) && (a.course_number == b.course_number) && (a.email == b.email)) {
+			return true;
+		} else {
+			return false;
+		}
+	} catch (var e) {
+
+	};
+}
 
 server.get('/data', async (req, res) => await res.send(results));
 
