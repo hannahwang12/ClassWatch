@@ -60,7 +60,7 @@ function isEqual(a, b) {
 		} else {
 			return false;
 		}
-	} catch (var e) {
+	} catch (e) {
 
 	};
 }

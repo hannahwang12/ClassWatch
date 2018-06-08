@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { EXDEV } from 'constants';
-import { format } from 'path';
+import RowComponent from '../components/RowComponent.js';
 
 class ResultsContainer extends Component {
   constructor(props) {
@@ -28,6 +27,7 @@ class ResultsContainer extends Component {
             </tr>
           </thead>
           <tbody>
+            <RowComponent results={this.props.results} index={1}/>
           </tbody>
         </table>
       </div>
