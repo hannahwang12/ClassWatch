@@ -11,10 +11,10 @@ class ResultsContainer extends Component {
   render() {
     const results = this.props.results;
     console.log(results);
-  //  const course_title = results[0].course_title;
+    const course_title = results[0].course_title;
     return (
       <div>
-        <h1></h1>
+        <h1>{course_title}</h1>
         <table>
           <thead>
             <tr>

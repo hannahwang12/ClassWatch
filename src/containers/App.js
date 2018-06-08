@@ -29,7 +29,7 @@ class App extends Component {
     return (
       <div className="home">
         <SearchContainer handleSubmit={this.handleSubmit}/>
-        <ResultsContainer results={this.results}/>
+        {this.state.searched ? <ResultsContainer results={this.results}/> : null}
       </div>
     );
   }
