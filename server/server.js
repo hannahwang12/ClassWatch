@@ -5,13 +5,24 @@ const server = express();
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const scraper = require('./scraper.js');
+const firebase = require('firebase');
 
 const hostname = '127.0.0.1';
 const port = 8080;
-const tracked_courses = [];
 
 server.use(bodyParser.urlencoded({ extended: true })); 
 server.use(cors({origin: 'http://localhost:3000'}));
+
+firebase.initializeApp({
+  apiKey: "AIzaSyBI-v9SUhZ8NFZG5d1V46SHNnNu7zRSrsA",
+  authDomain: "uwclasswatch.firebaseapp.com",
+  databaseURL: "https://uwclasswatch.firebaseio.com",
+  projectId: "uwclasswatch",
+  storageBucket: "uwclasswatch.appspot.com",
+  messagingSenderId: "968124232562"
+});
+
+const tracked_courses = firebase.app().database().ref();
 
 server.get('/', (req, res) => res.send('Hello World!'));
 
@@ -20,12 +31,23 @@ server.get('/', (req, res) => res.send('Hello World!'));
 
 let results;
 
+tracked_courses.on('value', function(data) {
+	console.log(data.val());
+});
+
 server.post('/scrape', async (req, res) => {
 	const course_code = req.body.course;
 	const subject = course_code.match(/[A-z]+/)[0].trim();
 	const course_number = course_code.match(/\d+/)[0].trim();
 	results = await scraper.go_to_page(1179, subject, course_number);
 	console.log(results);
+	/*
+	let course_info = {subject:subject, course_number:course_number};
+	tracked_courses.push(course_info);
+
+	let del_ref = firebase.app().database().ref().child('-LESU1MyLZcl-o2mLRxv');
+	del_ref.remove()
+	*/
 });
 
 
@@ -45,12 +67,7 @@ server.post("/remove", async (req, res) => {
 	const course_number = course_code.match(/\d+/)[0].trim();
 	let course_info = {subject:subject, course_number:course_number, email:email};
 
-	const len = tracked_courses.length();
-	for (let i = 0; i < len; i++) {
-		if (isEqual(tracked_courses[i], course_info)) {
-			tracked_courses.splice(i, 1);
-		}
-	}
+	let del_ref = admin.database().ref("")
 });
 
 function isEqual(a, b) {
@@ -60,7 +77,7 @@ function isEqual(a, b) {
 		} else {
 			return false;
 		}
-	} catch (var e) {
+	} catch (e) {
 
 	};
 }
