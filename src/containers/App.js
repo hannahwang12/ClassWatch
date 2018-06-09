@@ -26,12 +26,19 @@ class App extends Component {
 	}
 
   render() {
-    return (
-      <div className="home">
-        <SearchContainer handleSubmit={this.handleSubmit}/>
-        {this.state.searched ? <ResultsContainer results={this.results}/> : null}
-      </div>
-    );
+    if (!this.state.searched) {
+      return (
+        <div className="home">
+          <SearchContainer handleSubmit={this.handleSubmit}/>
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <ResultsContainer results={this.results}/>
+        </div>
+      );
+    }
   }
 }
 
