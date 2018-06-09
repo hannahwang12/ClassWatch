@@ -6,18 +6,16 @@ class RowComponent extends Component {
   }
 
   render() {
-    const index = this.props.index;
-    const results = this.props.results;
-    const rowData = results[index];
+    const rowData = this.props.row;
     return (
       <tr>
-        <td></td>
+        <td><input type="checkbox"/></td>
         <td>{rowData.section}</td>
         <td>{rowData.instructor}</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td>{rowData.days}</td>
+        <td>{rowData.time}</td>
+        <td>{rowData.location}</td>
+        <td>{rowData.enrol_total} / {rowData.enrol_cap}</td>
       </tr>
     );
   }

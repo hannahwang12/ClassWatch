@@ -4,8 +4,11 @@ import RowComponent from '../components/RowComponent.js';
 class ResultsContainer extends Component {
   constructor(props) {
     super(props);
-
   }
+
+ // createRows() {
+  
+ // }
 
   render() {
     const results = this.props.results;
@@ -27,7 +30,7 @@ class ResultsContainer extends Component {
             </tr>
           </thead>
           <tbody>
-            <RowComponent results={this.props.results} index={1}/>
+            {results.map((elem) => <RowComponent row={elem}/>)}
           </tbody>
         </table>
       </div>
