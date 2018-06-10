@@ -6,17 +6,13 @@ class ResultsContainer extends Component {
     super(props);
   }
 
- // createRows() {
-  
- // }
-
   render() {
     const results = this.props.results;
     console.log(results);
-    const course_title = results[0].course_title;
     return (
       <div>
-        <h1>{course_title}</h1>
+        <h1>{results[0].course_code}</h1>
+        <h2>{results[0].course_title}</h2>
         <table>
           <thead>
             <tr>

@@ -28,7 +28,7 @@ class App extends Component {
   render() {
     return (
       <div className="home">
-        <SearchContainer handleSubmit={this.handleSubmit}/>
+        {this.state.searched ? null : <SearchContainer handleSubmit={this.handleSubmit}/>}
         {this.state.searched ? <ResultsContainer results={this.results}/> : null}
       </div>
     );
