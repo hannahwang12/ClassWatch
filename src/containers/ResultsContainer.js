@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import RowComponent from '../components/RowComponent.js';
 import SubmitComponent from '../components/SubmitComponent.js';
+import '../assets/style/ResultsContainer.css'
 
 class ResultsContainer extends Component {
   constructor(props) {
@@ -23,7 +24,7 @@ class ResultsContainer extends Component {
     const results = this.props.results;
     console.log(results);
     return (
-      <div>
+      <div className="resultsPage">
         <h1>{results[0].course_code}</h1>
         <h2>{results[0].course_title}</h2>
         <form action="http://localhost:8080/submit" target="dummyframe" method="post">
