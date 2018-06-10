@@ -50,6 +50,11 @@ server.post('/scrape', async (req, res) => {
 	*/
 });
 
+server.post("/submit", async (req, res) => {
+	console.log("no");
+	console.log(req.body.test);
+	console.log(req.body.email);
+});
 
 server.post("/track", async (req, res) => {
 	const course_code = req.body.course;
