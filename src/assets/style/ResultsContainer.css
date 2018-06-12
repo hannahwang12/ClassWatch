@@ -1,11 +1,34 @@
 .resultsPage {
   background-color: rgba(255, 255, 255, 0.3);
   font-family: Montserrat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.results {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 2em;
+}
+
+h1 {
+  margin-bottom: 0;
+  font-size: 2em;
+  font-weight: bold;
+}
+
+h2 {
+  margin-top: 0.2em;
+  margin-bottom: 0;
+  font-size: 1em;
 }
 
 table {
   border-collapse: collapse;
-  margin: 1em;
+  margin-top: 1em;
+  margin-bottom: 1em;
   border-top: solid 1px rgba(255, 255, 255, 0.3);
   border-bottom: solid 1px rgba(255, 255, 255, 0.3);
 }
@@ -21,4 +44,18 @@ th {
 
 td {
   padding: 0.5em;
+}
+
+button {
+  padding: 0.5em;
+  font-family: Montserrat;
+  font-size: 1.2em;
+  background-color: transparent;
+  border: solid 1px black;
+  border-radius: 0.5em;
+}
+
+button:hover {
+  color: white;
+  border-color: white;
 }

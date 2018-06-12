@@ -22,7 +22,7 @@ class App extends Component {
         this.results = response.data;
         this.setState({searched: true});
       }); 
-		}.bind(this), 10 * 1000);
+		}.bind(this), 8 * 1000);
 	}
 
   render() {

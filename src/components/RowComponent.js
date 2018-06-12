@@ -12,7 +12,7 @@ class RowComponent extends Component {
         <td><input className="checkbox" type="checkbox"/></td>
         <td>{rowData.section}</td>
         <td>{rowData.instructor}</td>
-        <td>{rowData.days ? rowData.days.toString().replace(/'/g, ', ') : null}</td>
+        <td>{rowData.days ? rowData.days.toString().replace(/,/g, ', ') : null}</td>
         <td>{rowData.time}</td>
         <td>{rowData.location}</td>
         <td>{rowData.enrol_total} / {rowData.enrol_cap}</td>
