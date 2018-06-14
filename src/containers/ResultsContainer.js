@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import RowComponent from '../components/RowComponent.js';
 import SubmitComponent from '../components/SubmitComponent.js';
-import '../assets/style/ResultsContainer.css'
 
 class ResultsContainer extends Component {
   constructor(props) {

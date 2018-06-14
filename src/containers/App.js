@@ -16,13 +16,18 @@ class App extends Component {
 
   handleSubmit = (e) => {
 		//make a request to get back scraped data
-		setTimeout(function () { 
+		/*setTimeout(function () { 
 			axios.get("http://localhost:8080/data").then(response => {
         console.log(response.data);
         this.results = response.data;
         this.setState({searched: true});
       }); 
-		}.bind(this), 8 * 1000);
+		}.bind(this), 8 * 1000);*/
+    axios.get("http://localhost:8080/data").then(response => {
+      console.log(response.data);
+      this.results = response.data;
+      this.setState({searched: true});
+    }); 
 	}
 
   render() {
