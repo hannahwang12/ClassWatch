@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
+import SearchComponent from '../components/SearchComponent.js';
 
 class SearchContainer extends Component {
 
 	constructor(props) {
 		super(props);
-		this.state = {
-			value: "",
-		};
+		// this.state = {
+		// 	value: "",
+		// };
 	}
 
 	// on form submit, send the inputted data as a POST request to the web server
@@ -19,12 +20,14 @@ class SearchContainer extends Component {
   render() {
     return (
       <div className="search">
-			<iframe width="0" height="0" border="0" name="dummyframe" id="dummyframe" display="none" frameBorder="0"></iframe>
-			<div className="title">ClassWatch.</div>
+				<div className="title">ClassWatch.</div>
+
+			{/* <iframe width="0" height="0" border="0" name="dummyframe" id="dummyframe" display="none" frameBorder="0"></iframe>
 			<form action="http://localhost:8080/scrape" method="post" onSubmit={this.props.handleSubmit} target="dummyframe" autoComplete="off">
 				<input name="course" type="text" className="search" placeholder="enter a course code" value={this.state.value} onChange={this.handleChange}/> 
-			</form>
-      </div>
+			</form> */}
+    		<SearchComponent handleSubmit={this.props.handleSubmit}/>
+			</div>
     );
   }
 }

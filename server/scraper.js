@@ -13,6 +13,11 @@ const go_to_page = async function(term, subject, course_number) {
 		.evaluate(() => {
 			return document.body.innerHTML;
 		});
+	if (/sorry, but your query had no matches/i.test(body)) {
+		return [{
+			course_code: `${subject} ${course_number}`,
+		}];
+	}
 	const $ = cheerio.load(body, { lowerCaseTags: true});
 	return scrape_data($, subject, course_number);
 }

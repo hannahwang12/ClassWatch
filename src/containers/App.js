@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import background from '../assets/img/mountains.jpg';
 import SearchContainer from '../containers/SearchContainer.js'
 import ResultsContainer from '../containers/ResultsContainer.js'
 import '../assets/style/App.css';
@@ -33,8 +32,8 @@ class App extends Component {
   render() {
     return (
       <div className="home">
-        {this.state.searched ? null : <SearchContainer handleSubmit={this.handleSubmit}/>}
-        {this.state.searched? <ResultsContainer results={this.results}/> : null}
+        {this.state.searched ? null : <SearchContainer searched={this.state.searched} handleSubmit={this.handleSubmit}/>}
+        {this.state.searched? <ResultsContainer searched={this.state.searched} results={this.results} handleSubmit={this.handleSubmit}/> : null}
       </div>
     );
   }
