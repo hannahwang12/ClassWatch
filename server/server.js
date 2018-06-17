@@ -39,14 +39,20 @@ tracked_courses.on('value', function(data) {
 
 // FIREBASE STUFF
 server.post("/track", async (req, res) => {
-	const course_code = req.body.course;
+	const course_code = req.body.sections;
 	const email = req.body.email;
+	console.log(course_code);
+	console.log(email);
+	/*
 	const subject = course_code.match(/[A-z]+/)[0].trim();
 	const course_number = course_code.match(/\d+/)[0].trim();
 	let course_info = {subject:subject, course_number:course_number, email:email};
+	console.log(course_info);
 	tracked_courses.push(course_info);
+	*/
 });
 
+/*
 server.post("/remove", async (req, res) => {
 	const course_code = req.body.course;
 	const email = req.body.email;
@@ -56,6 +62,7 @@ server.post("/remove", async (req, res) => {
 
 	//let del_ref = admin.database().ref("")
 });
+*/
 
 server.post('/scrape', async (req, res) => {
 	const course_code = req.body.course;
@@ -71,13 +78,6 @@ server.post('/scrape', async (req, res) => {
 	del_ref.remove()
 	*/
 });
-
-/*
-server.post("/submit", async (req, res) => {
-	console.log(req.body.test);
-	console.log(req.body.email);
-});
-*/
 
 // Given an eventEmitter and an eventType, this function returns a promise
 // which resolves when the event happens
@@ -98,18 +98,6 @@ server.get('/data', async (req, res) => {
 });
 
 server.listen(port, () => console.log('Example server up on port 8080'));
-
-function isEqual(a, b) {
-	try {
-		if ((a.subject == b.subject) && (a.course_number == b.course_number) && (a.email == b.email)) {
-			return true;
-		} else {
-			return false;
-		}
-	} catch (e) {
-
-	};
-}
 
 // now is set to the current date in milliseconds since some date
 function customSchedule() {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import SearchContainer from '../containers/SearchContainer.js'
-import ResultsContainer from '../containers/ResultsContainer.js'
+import SearchComponent from '../components/SearchComponent.js';
+import ResultsContainer from '../containers/ResultsContainer.js';
 import '../assets/style/App.css';
 
 class App extends Component {
@@ -14,14 +14,6 @@ class App extends Component {
   }
 
   handleSubmit = (e) => {
-		//make a request to get back scraped data
-		/*setTimeout(function () { 
-			axios.get("http://localhost:8080/data").then(response => {
-        console.log(response.data);
-        this.results = response.data;
-        this.setState({searched: true});
-      }); 
-		}.bind(this), 8 * 1000);*/
     axios.get("http://localhost:8080/data").then(response => {
       console.log(response.data);
       this.results = response.data;
@@ -32,8 +24,12 @@ class App extends Component {
   render() {
     return (
       <div className="home">
-        {this.state.searched ? null : <SearchContainer searched={this.state.searched} handleSubmit={this.handleSubmit}/>}
-        {this.state.searched? <ResultsContainer searched={this.state.searched} results={this.results} handleSubmit={this.handleSubmit}/> : null}
+        {this.state.searched ? null : 
+          <div className="search">
+            <div className="title">ClassWatch.</div>
+            <SearchComponent handleSubmit={this.handleSubmit}/>
+          </div>}
+        {this.state.searched ? <ResultsContainer searched={this.state.searched} results={this.results} handleSubmit={this.handleSubmit}/> : null}
       </div>
     );
   }

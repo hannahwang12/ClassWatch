@@ -8,11 +8,8 @@ class ResultsContainer extends Component {
     super(props);
     this.state = {
       submitDialog: "none",
+      checkedCourses: new Array(),
     }
-  }
-
-  onSubmit = (e) => {
-    // push to a local array
   }
 
   watchClasses = (e) => {
@@ -22,7 +19,7 @@ class ResultsContainer extends Component {
 
   render() {
     const results = this.props.results;
-    console.log(results);
+    const course_name = results[0].course_code;
     if (results[0].course_title) {
       return (
         <div className="resultsPage">
@@ -30,7 +27,7 @@ class ResultsContainer extends Component {
           <div className="results">
             <h1>{results[0].course_code}</h1>
             <h2>{results[0].course_title}</h2>
-            <form action="http://localhost:8080/submit" target="dummyframe" method="post">
+            <form action="http://localhost:8080/track" target="dummyframe" method="post">
               <table>
                 <thead>
                   <tr>
@@ -44,7 +41,7 @@ class ResultsContainer extends Component {
                   </tr>
                 </thead>
                 <tbody>
-                    {results.map((elem) => <RowComponent row={elem}/>)}
+                    {results.map((elem) => <RowComponent row={elem} onCheck={this.onCheck}/>)}
                 </tbody>
               </table>
               <button onClick={ this.watchClasses }>Watch</button>
