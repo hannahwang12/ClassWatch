@@ -9,7 +9,7 @@ class RowComponent extends Component {
     const rowData = this.props.row;
     return (
       <tr>
-        <td><input className="checkbox" type="checkbox"/></td>
+        <td><input className="checkbox" type="checkbox" name="sections[]" value={rowData.section} onClick={this.props.onCheck}/></td>
         <td>{rowData.section}</td>
         <td>{rowData.instructor}</td>
         <td>{rowData.days ? rowData.days.toString().replace(/,/g, ', ') : null}</td>

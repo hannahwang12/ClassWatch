@@ -11,7 +11,6 @@ class SearchComponent extends Component {
   handleChange = (e) => {
 		this.setState({value: e.target.value.toUpperCase()});
   }
-
   
   render() {
     return (
