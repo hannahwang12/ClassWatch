@@ -27,9 +27,6 @@ const tracked_courses = firebase.app().database().ref();
 
 server.get('/', (req, res) => res.send('Hello World!'));
 
-
-// when the server receives a POST request to /scrape, execute the code
-
 let results;
 let em = new events.EventEmitter();
 
@@ -39,17 +36,13 @@ tracked_courses.on('value', function(data) {
 
 // FIREBASE STUFF
 server.post("/track", async (req, res) => {
-	const course_code = req.body.sections;
+	const sections = req.body.sections;
 	const email = req.body.email;
-	console.log(course_code);
-	console.log(email);
-	/*
-	const subject = course_code.match(/[A-z]+/)[0].trim();
-	const course_number = course_code.match(/\d+/)[0].trim();
-	let course_info = {subject:subject, course_number:course_number, email:email};
+	const name = req.body.course_name;
+	const info = {name:name, sections:sections};
+	let course_info = {email:email, info:info};
 	console.log(course_info);
 	tracked_courses.push(course_info);
-	*/
 });
 
 /*
@@ -70,13 +63,6 @@ server.post('/scrape', async (req, res) => {
 	const course_number = course_code.match(/\d+/)[0].trim();
 	results = await scraper.go_to_page(1179, subject, course_number);
 	em.emit("complete", null); //Emit the event that the get request is listening for
-	/*
-	let course_info = {subject:subject, course_number:course_number};
-	tracked_courses.push(course_info);
-
-	let del_ref = firebase.app().database().ref().child('-LESU1MyLZcl-o2mLRxv');
-	del_ref.remove()
-	*/
 });
 
 // Given an eventEmitter and an eventType, this function returns a promise
@@ -98,6 +84,10 @@ server.get('/data', async (req, res) => {
 });
 
 server.listen(port, () => console.log('Example server up on port 8080'));
+
+function checkCourses() {
+	
+}
 
 // now is set to the current date in milliseconds since some date
 function customSchedule() {
