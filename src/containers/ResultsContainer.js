@@ -14,7 +14,15 @@ class ResultsContainer extends Component {
 
   watchClasses = (e) => {
     e.preventDefault();
+    e.stopPropagation();
     this.setState({ submitDialog: "block" });
+  }
+
+  exitSubmit = (e) => {
+    console.log("call");
+    if (this.state.submitDialog == "block") {
+      this.setState({ submitDialog: "none" });
+    }
   }
 
   render() {
@@ -46,9 +54,11 @@ class ResultsContainer extends Component {
                 </tbody>
               </table>
               <button onClick={ this.watchClasses }>Watch</button>
-              <SubmitComponent display={this.state.submitDialog}/>
               <iframe width="0" height="0" border="0" name="dummyframe" id="dummyframe" display="none" frameBorder="0"></iframe>
               <input type="hidden" name="course_name" display="none" value={course_name}></input>
+              <div className="submitDialog" style={{ display: this.state.submitDialog }}>
+                <SubmitComponent exit={this.exitSubmit}/>
+              </div>
             </form>
           </div>
         </div>
