@@ -60,7 +60,7 @@ server.post("/remove", async (req, res) => {
 server.post('/scrape', async (req, res) => {
 	const course_code = req.body.course;
 	const subject = course_code.match(/[A-z]+/)[0].trim();
-	const course_number = course_code.match(/\d+/)[0].trim();
+	const course_number = course_code.match(/\d+./)[0].trim();
 	results = await scraper.go_to_page(1179, subject, course_number);
 	em.emit("complete", null); //Emit the event that the get request is listening for
 });

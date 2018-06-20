@@ -24,7 +24,7 @@ const go_to_page = async function(term, subject, course_number) {
 
 const scrape_data = async function($, subject, course_number) {
 	const course_title = $('body > p:nth-child(4) > table > tbody > tr:nth-child(2) > td:nth-child(4)').text();
-	const classes = $('table table > tbody > tr')
+	const classes = $('table table:first-of-type > tbody > tr')
 		.slice(1)
 		.filter((index, row) => {
 			const section = $(row)
@@ -35,6 +35,32 @@ const scrape_data = async function($, subject, course_number) {
 			return (type != 'TST');
 		})
 		.map((index, row) => {
+			if ($(row).find('i').text().indexOf('Reserve') >= 0) {
+				const reserve = $(row).find('i').text();
+				const reserve_enrol_cap = $(row)
+					.find(':nth-child(2)')
+					.text()
+					.trim();
+				const reserve_enrol_total = $(row)
+					.find(':nth-child(3)')
+					.text()
+					.trim();
+				let section;
+				let i = 0;
+				while (!(/[A-Z]{3} \d{3}/.test(section))) {
+					section = $(`table table > tbody > tr:nth-child(${index + 1 - i})`)
+						.find(':nth-child(2)')
+						.text()
+						.trim();
+					i++;
+				}
+				return {
+					section: `${section} RES${i}`,
+					reserve,
+					reserve_enrol_cap,
+					reserve_enrol_total,
+				};
+			}
 			const section = $(row)
 				.find(':nth-child(2)')
 				.text()

@@ -2,13 +2,14 @@ body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+  background-image: url(../img/mountains.jpg);
+  background-size: cover;
+  background-attachment: fixed;
 }
 
 .home {
   text-align: center;
-  background-image: url(../img/mountains.jpg);
-  height: 100vh;
-  background-size: cover;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -48,7 +49,7 @@ input:focus {
 .resultsPage {
   background-color: rgba(255, 255, 255, 0.3);
   font-family: Montserrat;
-  display: flex;
+  display: flex;  
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -79,11 +80,12 @@ table {
   margin-bottom: 1em;
   border-top: solid 1px rgba(255, 255, 255, 0.3);
   border-bottom: solid 1px rgba(255, 255, 255, 0.3);
+  font-size: 0.9em;
 }
 
-tbody tr:nth-child(odd) {
+/* tbody tr:nth-child(odd) {
   background-color: rgba(255, 255, 255, 0.3);
-}
+} */
 
 th {
   padding: 0.5em;
@@ -92,6 +94,15 @@ th {
 
 td {
   padding: 0.5em;
+}
+
+.reserveRow td {
+  padding-top: 0;
+}
+
+.reserveCell {
+  font-style: italic;
+  text-align: left;
 }
 
 button {

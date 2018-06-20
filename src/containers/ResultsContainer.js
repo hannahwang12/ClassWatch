@@ -18,6 +18,7 @@ class ResultsContainer extends Component {
   }
 
   render() {
+    console.log(results);
     const results = this.props.results;
     const course_name = results[0].course_code;
     if (results[0].course_title) {
