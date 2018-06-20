@@ -25,14 +25,14 @@ firebase.initializeApp({
 
 const tracked_courses = firebase.app().database().ref();
 
-server.get('/', (req, res) => res.send('Hello World!'));
+//server.get('/', (req, res) => res.send('Hello World!'));
+server.get('/', async (req, res) => {
+	checkCourses();
+})
 
 let results;
+let courses_to_scrape = new Array();
 let em = new events.EventEmitter();
-
-tracked_courses.on('value', function(data) {
-	console.log(data.val());
-});
 
 // FIREBASE STUFF
 server.post("/track", async (req, res) => {
@@ -68,9 +68,6 @@ server.post('/scrape', async (req, res) => {
 // Given an eventEmitter and an eventType, this function returns a promise
 // which resolves when the event happens
 function waitForEvent( eventEmitter, eventType ) {
-	// var promise = new Promise(function (resolve, reject) {
-	//		resolve();	// The parameters for resolve/reject are optional, you can code for only one/both
-	//})
 	return new Promise ( function( resolve ) {
 		eventEmitter.on( eventType, resolve )
 	})
@@ -86,7 +83,20 @@ server.get('/data', async (req, res) => {
 server.listen(port, () => console.log('Example server up on port 8080'));
 
 function checkCourses() {
-	
+	tracked_courses.once('value', function(data) {	
+		data.forEach(function(elem) {
+			var course = {email:elem.val().email, name:elem.val().info.name, sections:elem.val().info.sections};
+			console.log(course);
+			courses_to_scrape.push(course);
+			/*
+			const subject = elem.val().info.name.match(/[A-z]+/)[0].trim();
+			const course_number = elem.val().info.name.match(/\d+/)[0].trim();
+			let scrape_results = await scraper.go_to_page(1179, subject, course_number);
+			console.log(scrape_results);
+			*/
+		});
+		console.log(courses_to_scrape);
+	});
 }
 
 // now is set to the current date in milliseconds since some date
@@ -98,6 +108,7 @@ function customSchedule() {
 		//const scraper = require('./scraper.js');
 		//scraper.go_to_page(1179, 'CS', 136);
 		console.log("trigger");
+		//checkCourses();
 	}
 
 	// fire the next time in 1min
