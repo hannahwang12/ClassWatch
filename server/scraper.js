@@ -32,7 +32,6 @@ const scrape_data = async function($, subject, course_number) {
 				.find(':nth-child(2)')
 				.text()
 				.trim();
-			console.log(section);
 			if (section == 'Comp Sec') {
 				first_result = false;
 			}
