@@ -14,6 +14,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  z-index: 0;
 }
 
 .title {
@@ -118,4 +119,34 @@ button:hover {
   color: white;
   border-color: white;
   cursor: pointer;
+}
+
+.submitDialog {
+  background-color: grey;
+  width: 50vw;
+  height: 30vh;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0.9;
+}
+
+.submitDialog p {
+  padding: 0;
+  margin: 1vh 1vw;
+  cursor: pointer;
+  float: right;
+  clear: both;
+  color: white;
+  font-size: 30px;
+}
+
+.submitDialog input {
+  width: 40vw;
+  margin: 2vh 2vw;
+}
+
+.submitDialog button {
+  margin: 2vh 2vw;
 }
