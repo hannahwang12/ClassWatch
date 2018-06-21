@@ -7,7 +7,8 @@ class SubmitComponent extends Component {
 
   render() {
     return (
-      <div className="submitdialog" style={{ display: this.props.display }}>
+      <div className="submitDiv">
+        <p onClick={this.props.exit}>X</p>
         <input name="email" type="text" placeholder="enter your email"></input>
         <button onClick={this.props.onSubmit}>Submit</button>
       </div>
