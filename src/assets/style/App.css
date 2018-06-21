@@ -2,7 +2,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
-  background-image: url(../img/mountains.jpg);
+  background-image: url(../img/forest.jpg);
   background-size: cover;
   background-attachment: fixed;
 }
@@ -21,6 +21,7 @@ body {
   color: white;
   font-family: 'Montserrat';
   font-weight: bold;
+  padding-top: 4vh;
   padding-bottom: 4vh;
 }
 

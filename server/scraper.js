@@ -24,6 +24,7 @@ const go_to_page = async function(term, subject, course_number) {
 
 const scrape_data = async function($, subject, course_number) {
 	const course_title = $('body > p:nth-child(4) > table > tbody > tr:nth-child(2) > td:nth-child(4)').text();
+	let first_result = true;
 	const classes = $('table table:first-of-type > tbody > tr')
 		.slice(1)
 		.filter((index, row) => {
@@ -31,8 +32,12 @@ const scrape_data = async function($, subject, course_number) {
 				.find(':nth-child(2)')
 				.text()
 				.trim();
+			console.log(section);
+			if (section == 'Comp Sec') {
+				first_result = false;
+			}
 			const type = section.substring(0, 3);
-			return (type != 'TST');
+			return (type != 'TST') && first_result;
 		})
 		.map((index, row) => {
 			if ($(row).find('i').text().indexOf('Reserve') >= 0) {
