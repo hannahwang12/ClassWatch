@@ -9,6 +9,7 @@ class App extends Component {
     super(props);
     this.state = {
       searched: false,
+      clickOut: true,
     }
     this.results = null;
   }
@@ -21,15 +22,19 @@ class App extends Component {
     }); 
 	}
 
+  clickOutside = (e) => {
+      this.forceUpdate();
+  }
+
   render() {
     return (
-      <div className="home">
+      <div className="home" onClick={this.clickOutside}>
         {this.state.searched ? null : 
           <div className="search">
             <div className="title">ClassWatch.</div>
             <SearchComponent handleSubmit={this.handleSubmit}/>
           </div>}
-        {this.state.searched ? <ResultsContainer searched={this.state.searched} results={this.results} handleSubmit={this.handleSubmit}/> : null}
+        {this.state.searched ? <ResultsContainer searched={this.state.searched} results={this.results} handleSubmit={this.handleSubmit} clickOut={this.state.clickOut}/> : null}
       </div>
     );
   }
