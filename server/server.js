@@ -69,7 +69,7 @@ server.post('/scrape', async (req, res) => {
 // which resolves when the event happens
 function waitForEvent( eventEmitter, eventType ) {
 	return new Promise ( function( resolve ) {
-		eventEmitter.on( eventType, resolve )
+		eventEmitter.once( eventType, resolve )
 	})
 };
 
