@@ -12,6 +12,12 @@ class ResultsContainer extends Component {
     }
   }
 
+  componentWillReceiveProps(newProps) {
+      if (newProps.clickOut) {
+        this.setState({ submitDialog: "none" });
+      }
+  }
+
   watchClasses = (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -19,7 +25,6 @@ class ResultsContainer extends Component {
   }
 
   exitSubmit = (e) => {
-    console.log("call");
     if (this.state.submitDialog == "block") {
       this.setState({ submitDialog: "none" });
     }
@@ -29,10 +34,8 @@ class ResultsContainer extends Component {
     e.stopPropagation();
   }
 
-  componentWillReceiveProps(newProps) {
-      if (newProps.clickOut) {
-        this.setState({ submitDialog: "none" });
-      }
+  onSubmit = (e) => {
+    this.setState({ submitDialog: "none" });
   }
 
   render() {
@@ -67,7 +70,7 @@ class ResultsContainer extends Component {
               <iframe width="0" height="0" border="0" name="dummyframe" id="dummyframe" display="none" frameBorder="0"></iframe>
               <input type="hidden" name="course_name" display="none" value={course_name}></input>
               <div className="submitDialog" style={{ display: this.state.submitDialog }} onClick={this.clickDialog}>
-                <SubmitComponent exit={this.exitSubmit}/>
+                <SubmitComponent exit={this.exitSubmit} onSubmit={this.onSubmit}/>
               </div>
             </form>
           </div>

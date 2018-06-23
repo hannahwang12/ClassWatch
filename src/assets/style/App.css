@@ -142,10 +142,11 @@ button:hover {
   float: right;
   clear: both;
   color: white;
-  font-size: 30px;
+  font-size: 25px;
 }
 
 .submitDialog input {
+  font-size: 35px;
   width: 40vw;
   margin: 2vh 2vw;
 }
