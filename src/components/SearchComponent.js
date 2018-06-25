@@ -11,12 +11,17 @@ class SearchComponent extends Component {
   handleChange = (e) => {
 		this.setState({value: e.target.value.toUpperCase()});
   }
+
+  setLoading = (e) => {
+    this.props.handleSubmit();    
+    // Change something so users know it's searching
+  }
   
   render() {
     return (
       <div className="searchBar">
         <iframe width="0" height="0" border="0" name="dummyframe" id="dummyframe" display="none" frameBorder="0"></iframe>
-        <form action="http://localhost:8080/scrape" method="post" onSubmit={this.props.handleSubmit} target="dummyframe" autoComplete="off">
+        <form action="http://localhost:8080/scrape" method="post" onSubmit={this.setLoading} target="dummyframe" autoComplete="off">
           <input name="course" type="text" className="search" placeholder="enter a course code" value={this.state.value} onChange={this.handleChange}/>
         </form>
       </div>

@@ -12,7 +12,6 @@ const nodemailer = require('nodemailer');
 const hostname = '127.0.0.1';
 const port = 8080;
 let results;
-let courses_to_scrape = new Array();
 let em = new events.EventEmitter();
 
 server.use(bodyParser.urlencoded({ extended: true })); 
@@ -38,32 +37,33 @@ const tracked_courses = firebase.app().database().ref();
 
 server.listen(port, () => console.log('Example server up on port 8080'));
 
-//server.get('/', (req, res) => res.send('Hello World!'));
 server.get('/', async (req, res) => {
-	res.send("Welcome!")
-})
+	console.log("ay");
+	let del_ref = firebase.app().database().ref().child("CS 245").child();	
+	del_ref.remove();
+});
 
 server.post("/track", async (req, res) => {
 	const sections = req.body.sections;
+	const len = sections.length;
 	const email = req.body.email;
 	const name = req.body.course_name;
-	const info = {name:name, sections:sections};
-	let course_info = {email:email, info:info};
-	console.log(course_info);
-	tracked_courses.push(course_info);
+
+	for (var i = 0; i < len; ++i) {
+		tracked_courses.child(name).child(sections[i]).push(email);
+	}
 });
 
-/*
 server.post("/remove", async (req, res) => {
-	const course_code = req.body.course;
-	const email = req.body.email;
-	const subject = course_code.match(/[A-z]+/)[0].trim();
-	const course_number = course_code.match(/\d+/)[0].trim();
-	let course_info = {subject:subject, course_number:course_number, email:email};
+	let remove_info = req.body.code.split('|');
+	// 0: key
+	// 1: course
+	// 2: section
 
-	//let del_ref = admin.database().ref("")
+	let del_ref = firebase.app().database().ref().child(remove_info[1]).child(remove_info[2]).child(remove_info[0]);	
+	del_ref.remove();
 });
-*/
+
 
 // uw.classwatch.notif@gmail.com
 // UWclasswatch!
@@ -102,22 +102,131 @@ function waitForEvent( eventEmitter, eventType ) {
 	})
 };
 
-function contains( elem, array ) {
+function contains_elem( elem, array ) {
 	let len = array.length;
 	for (var i = 0 ; i < len ; ++i) {
 		if (array[i] === elem) {
-			return true;
+			return i;
 		}
 	}
-	return false;
+	return -1;
 }
 
 function checkCourses() {
+	var course_names = new Array();
+	var course_info = new Array();
+	tracked_courses.once('value', async function(data) {
+		course_names = Object.keys(data.val());
+		data.forEach(function(elem) {
+			course_info.push(elem.val());
+		});
+		var num_courses = course_names.length;
+
+		// For each course you have to scrape
+		for (var i = 0; i < num_courses; ++i) {
+			const subject = course_names[i].match(/[A-z]+/)[0].trim();
+			const course_number = course_names[i].match(/\d+./)[0].trim();
+			let temp_results = await scraper.go_to_page(1179, subject, course_number);
+			var num_sections = temp_results.length;
+
+			// The section names are the keys of the course object
+			var sections_to_check = Object.keys(course_info[i]);
+
+			// For each section in the course you scraped
+			for (var j = 0; j < num_sections; ++j) {
+				var contains = contains_elem(temp_results[j].section, sections_to_check);
+				// If the section in the course exists in the array of sections that are being watched
+				if (contains != -1) {
+					var remove_codes = new Array();
+					var emails = new Array();
+
+					// Construct two arrays, one with the keys (removal codes), and one with the emails
+					Object.keys(course_info[i][ sections_to_check[contains].toString() ]).forEach(function (key) {
+						remove_codes.push(key);
+						emails.push(course_info[i][ sections_to_check[contains].toString() ][ key.toString() ]);
+					})
+
+					var emails_len = emails.length;
+					if (temp_results[j].reserve == null && (temp_results[j].enrol_total < temp_results[j].enrol_cap)) {
+						for (var n = 0; n < emails_len; ++n) {
+							const mailOptions = {
+								from: 'uw.classwatch.notif@gmail.com',
+								to: emails[n],
+								subject: "There's space for you in " + course_names[i] + ": " + sections_to_check[contains],
+								text: 'Current capacity is: ' + temp_results[j].enrol_total + '/' + temp_results[j].enrol_cap + '. Your removal code is: ' + remove_codes[n] + '|' + course_names[i] + '|' + sections_to_check[contains]
+							};
+
+							transporter.sendMail(mailOptions, function(error, info){
+								if (error) {
+									console.log(error);
+								} else {
+									console.log('email sent');
+								}
+							});
+
+						}
+					} else if (temp_results[j] != null && (temp_results[j].reserve_enrol_total < temp_results[j].reserve_enrol_cap)) {
+						for (var n = 0; n < emails_len; ++n) {
+							const mailOptions = {
+								from: 'uw.classwatch.notif@gmail.com',
+								to: emails[n],
+								subject: "There's space for you in " + course_names[i] + ": " + sections_to_check[contains],
+								text: 'Current capacity is: ' + temp_results[j].reserve_enrol_total + '/' + temp_results[j].reserve_enrol_total + '. Your removal code is: ' + remove_codes[n] + '|' + course_names[i] + '|' + sections_to_check[contains]
+							};
+
+							transporter.sendMail(mailOptions, function(error, info){
+								if (error) {
+									console.log(error);
+								} else {
+									console.log('email sent');
+								}
+							});
+						}
+					}
+				}
+			}
+		}
+	});
+}
+
+// now is set to the current date in milliseconds since some date
+function customSchedule() {
+	var now = Date.now();
+
+	//  1,800,000 is 30 minutes in milliseconds, so if an interval of 30 minutes has passed since that date, we trigger
+	if (now % 1800000 <= 60000) {
+		checkCourses();
+	}
+
+	// Fire the next time in 1min
+	setTimeout(customSchedule, 1000 * 60);
+}
+
+customSchedule();
+
+
+/*
+server.post("/track", async (req, res) => {
+	/*
+	const sections = req.body.sections;
+	const email = req.body.email;
+	const name = req.body.course_name;
+	const info = {name:name, sections:sections};
+	let course_info = {email:email, info:info};
+	tracked_courses.push(course_info);
+	// tracked_courses.child("custom_key").setValue("custom value")
+})
+
+function checkCourses() {
 	courses_to_scrape = new Array();
+	keys = new Array();
 	tracked_courses.once('value', async function(data) {	
 		data.forEach(function(elem) {
 			var course = {email:elem.val().email, name:elem.val().info.name, sections:elem.val().info.sections};
 			courses_to_scrape.push(course);
+			var temp_arr = data.val();
+			keys = Object.keys(temp_arr);
+			console.log(keys);
 		});
 		var length = courses_to_scrape.length;
 		
@@ -137,7 +246,7 @@ function checkCourses() {
 							from: 'uw.classwatch.notif@gmail.com',
 							to: courses_to_scrape[i].email,
 							subject: "There's space for you in " + courses_to_scrape[i].name + ": " + temp_results[j].section,
-							text: 'Current capacity is: ' + temp_results[j].enrol_total + '/' + temp_results[j].enrol_cap
+							text: 'Current capacity is: ' + temp_results[j].enrol_total + '/' + temp_results[j].enrol_cap + '. Your removal code is: ' + keys[i] + '|' + courses_to_scrape[i] + '|' + temp_results[j].section
 						};
 
 						transporter.sendMail(mailOptions, function(error, info){
@@ -152,7 +261,7 @@ function checkCourses() {
 							from: 'uw.classwatch.notif@gmail.com',
 							to: courses_to_scrape[i].email,
 							subject: "There's space for you in " + courses_to_scrape[i].name + ": " + temp_results[j].section,
-							text: 'Current capacity is: ' + temp_results[j].reserve_enrol_total + '/' + temp_results[j].reserve_enrol_cap
+							text: 'Current capacity is: ' + temp_results[j].reserve_enrol_total + '/' + temp_results[j].reserve_enrol_cap + '. Your removal code is: ' + keys[i] + '|' + courses_to_scrape[i] + '|' + temp_results[j].section
 						};
 
 						transporter.sendMail(mailOptions, function(error, info){
@@ -169,21 +278,4 @@ function checkCourses() {
 
 	});
 }
-
-// now is set to the current date in milliseconds since some date
-function customSchedule() {
-	var now = Date.now();
-
-	//  1,800,000 is 30 minutes in milliseconds, so if an interval of 30 minutes has passed since that date, we trigger
-	if (now % 1800000 <= 60000) {
-		//const scraper = require('./scraper.js');
-		//scraper.go_to_page(1179, 'CS', 136);
-		checkCourses();
-		//checkCourses();
-	}
-
-	// fire the next time in 1min
-	setTimeout(customSchedule, 1000 * 60);
-}
-
-customSchedule();
+*/

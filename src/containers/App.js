@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import SearchComponent from '../components/SearchComponent.js';
+import RemoveComponent from '../components/RemoveComponent.js';
 import ResultsContainer from '../containers/ResultsContainer.js';
 import '../assets/style/App.css';
 
@@ -35,6 +36,9 @@ class App extends Component {
             <SearchComponent handleSubmit={this.handleSubmit}/>
           </div>}
         {this.state.searched ? <ResultsContainer searched={this.state.searched} results={this.results} handleSubmit={this.handleSubmit} clickOut={this.state.clickOut}/> : null}
+        <div className="remove">
+          <RemoveComponent />
+        </div>        
       </div>
     );
   }
