@@ -19,6 +19,7 @@ class SearchComponent extends Component {
         <form action="http://localhost:8080/scrape" method="post" onSubmit={this.props.handleSubmit} target="dummyframe" autoComplete="off">
           <input name="course" type="text" className="search" placeholder="enter a course code" value={this.state.value} onChange={this.handleChange}/>
         </form>
+        {this.props.searching ? <div className="loader"></div> : null}
       </div>
     );
   }

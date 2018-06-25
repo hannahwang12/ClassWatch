@@ -26,6 +26,10 @@ body {
   padding-bottom: 4vh;
 }
 
+.searchBar {
+  position: relative;
+}
+
 .home input {
   font-size: 3em;
   color: white;
@@ -46,6 +50,30 @@ input:focus {
 ::-webkit-input-placeholder {
   color: white;
   opacity: 0.8;
+}
+
+.loader {
+  border: 0.3em solid rgba(255, 255, 255, 0.35);
+  border-radius: 50%;
+  border-top: 0.3em solid white;
+  width: 1.5em;
+  height: 1.5em;
+  -webkit-animation: spin 1.5s linear infinite; /* Safari */
+  animation: spin 1.5s linear infinite;
+  position: absolute;
+  right: 1em;
+  top: 45%;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 .resultsPage {
