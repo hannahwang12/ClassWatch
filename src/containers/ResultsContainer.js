@@ -45,7 +45,7 @@ class ResultsContainer extends Component {
     if (results[0].course_title) {
       return (
         <div className="resultsPage">
-          <SearchComponent searched={this.props.searched} handleSubmit={this.props.handleSubmit}/>
+          <SearchComponent searching={this.props.searching} searched={this.props.searched} handleSubmit={this.props.handleSubmit}/>
           <div className="results">
             <h1>{results[0].course_code}</h1>
             <h2>{results[0].course_title}</h2>
@@ -79,7 +79,7 @@ class ResultsContainer extends Component {
     } else {
       return (
         <div className="resultsPage">
-          <SearchComponent searched={this.props.searched} handleSubmit={this.props.handleSubmit}/>
+          <SearchComponent searching={this.props.searching} searched={this.props.searched} handleSubmit={this.props.handleSubmit}/>
           <div className="results">
             <h1>{results[0].course_code}</h1>
             <p>No classes found :(</p>

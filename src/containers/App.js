@@ -9,6 +9,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      searching: false,
       searched: false,
       clickOut: true,
     }
@@ -16,9 +17,11 @@ class App extends Component {
   }
 
   handleSubmit = (e) => {
+    this.setState({searching: true});
     axios.get("http://localhost:8080/data").then(response => {
       console.log(response.data);
       this.results = response.data;
+      this.setState({searching: false});
       this.setState({searched: true});
     }); 
 	}
@@ -33,12 +36,12 @@ class App extends Component {
         {this.state.searched ? null : 
           <div className="search">
             <div className="title">ClassWatch.</div>
-            <SearchComponent handleSubmit={this.handleSubmit}/>
+            <SearchComponent searching={this.state.searching} handleSubmit={this.handleSubmit}/>
           </div>}
-        {this.state.searched ? <ResultsContainer searched={this.state.searched} results={this.results} handleSubmit={this.handleSubmit} clickOut={this.state.clickOut}/> : null}
         <div className="remove">
           <RemoveComponent />
         </div>        
+        {this.state.searched ? <ResultsContainer searching={this.state.searching} searched={this.state.searched} results={this.results} handleSubmit={this.handleSubmit} clickOut={this.state.clickOut}/> : null}
       </div>
     );
   }
