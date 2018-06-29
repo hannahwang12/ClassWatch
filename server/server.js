@@ -56,10 +56,6 @@ server.post("/track", async (req, res) => {
 
 server.post("/remove", async (req, res) => {
 	let remove_info = req.body.code.split('|');
-	// 0: key
-	// 1: course
-	// 2: section
-
 	let del_ref = firebase.app().database().ref().child(remove_info[1]).child(remove_info[2]).child(remove_info[0]);	
 	del_ref.remove();
 });
