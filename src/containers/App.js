@@ -4,6 +4,9 @@ import SearchComponent from '../components/SearchComponent.js';
 import RemoveComponent from '../components/RemoveComponent.js';
 import ResultsContainer from '../containers/ResultsContainer.js';
 import '../assets/style/App.css';
+import WinterBackground from '../assets/img/forest2.jpg';
+import SpringBackground from '../assets/img/forest.jpg';
+import FallBackground from '../assets/img/mountains.jpg';
 
 class App extends Component {
   constructor(props) {
@@ -12,8 +15,14 @@ class App extends Component {
       searching: false,
       searched: false,
       clickOut: true,
+      season: '5',
     }
     this.results = null;
+  }
+
+  changeSeason = (e) => {
+    this.setState({season: e.target.value.match(/\d\d\d(\d)/)[1]});
+    console.log(e.target.value.match(/\d\d\d(\d)/)[1]);
   }
 
   handleSubmit = (e) => {
@@ -30,13 +39,27 @@ class App extends Component {
       this.forceUpdate();
   }
 
+  
+
   render() {
+    let background = SpringBackground;
+    if (this.state.season === '1') {
+      background = WinterBackground;
+    } else if (this.state.season === '5') {
+      background = SpringBackground;
+    } else if (this.state.season === '9') {
+      background = FallBackground;
+    }
+    console.log(background);
+    const homeStyle = {
+      backgroundImage: `url(${background})`,
+    }
     return (
-      <div className="home" onClick={this.clickOutside}>
+      <div className="home" style={homeStyle} onClick={this.clickOutside}>
         {this.state.searched ? null : 
           <div className="search">
             <div className="title">ClassWatch.</div>
-            <SearchComponent searching={this.state.searching} handleSubmit={this.handleSubmit}/>
+            <SearchComponent searching={this.state.searching} handleSubmit={this.handleSubmit} changeSeason={this.changeSeason}/>
           </div>}
         <div className="remove">
           <RemoveComponent />
