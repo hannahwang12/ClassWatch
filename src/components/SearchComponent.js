@@ -1,4 +1,9 @@
 import React, { Component } from 'react';
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSearch } from '@fortawesome/free-solid-svg-icons'
+
+library.add(faSearch)
 
 class SearchComponent extends Component {
   constructor(props) {
@@ -29,8 +34,9 @@ class SearchComponent extends Component {
             <option value="1189">Fall 2018</option>
           </select>
           <input name="course" type="text" className="search" placeholder="enter a course code" value={this.state.value} onChange={this.handleChange}/>
+          {this.props.searching ? <div className="loader"></div> : <button type="submit"><FontAwesomeIcon className="searchIcon" icon="search" size="2x"/></button>}
         </form>
-        {this.props.searching ? <div className="loader"></div> : null}
+        
       </div>
     );
   }

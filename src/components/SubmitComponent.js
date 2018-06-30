@@ -10,7 +10,7 @@ class SubmitComponent extends Component {
       <div className="submitDiv">
         <p onClick={this.props.exit}>x</p>
         <input name="email" type="text" placeholder="enter your email" autoComplete="off" ></input>
-        <button onClick={this.props.onSubmit}>Submit</button>
+        <button className="button" onClick={this.props.onSubmit}>Submit</button>
       </div>
     );
   }

@@ -10,7 +10,7 @@ class RemoveComponent extends Component {
       <div>
         <form action="http://localhost:8080/remove" target="dummyframe" method="post">
           <input name="code" type="text" placeholder="enter your removal code" autoComplete="off" ></input>
-          <button type="submit">Submit</button>          
+          <button className="button" type="submit">Submit</button>          
         </form>
         <iframe width="0" height="0" border="0" name="dummyframe" id="dummyframe" display="none" frameBorder="0"></iframe>        
       </div>

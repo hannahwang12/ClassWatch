@@ -58,6 +58,17 @@ input:focus {
   opacity: 0.8;
 }
 
+.searchIcon {
+  color:  rgba(255, 255, 255, 0.8);
+  position: absolute;
+  right: 0.5em;
+  top: 45%;
+}
+
+.searchIcon:hover {
+  color: white;
+}
+
 .loader {
   border: 0.3em solid rgba(255, 255, 255, 0.35);
   border-radius: 50%;
@@ -142,7 +153,7 @@ td {
   text-align: left;
 }
 
-button {
+.button {
   padding: 0.5em;
   font-family: Montserrat;
   font-size: 1.2em;
@@ -152,7 +163,7 @@ button {
   border-radius: 0.5em;
 }
 
-button:hover {
+.button:hover {
   color: teal;
   border-color: teal;
   cursor: pointer;
