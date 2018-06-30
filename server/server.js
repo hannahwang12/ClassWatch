@@ -38,7 +38,6 @@ const tracked_courses = firebase.app().database().ref();
 server.listen(port, () => console.log('Example server up on port 8080'));
 
 server.get('/', async (req, res) => {
-	console.log("ay");
 	let del_ref = firebase.app().database().ref().child("CS 245").child();	
 	del_ref.remove();
 });
@@ -76,6 +75,7 @@ const transporter = nodemailer.createTransport({
 });
 
 server.post('/scrape', async (req, res) => {
+	console.log(req.body);
 	const course_code = req.body.course;
 	const subject = course_code.match(/[A-z]+/)[0].trim();
 	const course_number = course_code.match(/\d+./)[0].trim();

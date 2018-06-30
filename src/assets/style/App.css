@@ -63,10 +63,16 @@ input:focus {
   position: absolute;
   right: 0.5em;
   top: 45%;
+  border: none;
 }
 
 .searchIcon:hover {
   color: white;
+}
+
+.searchButton button {
+  border: none;
+  background-color: transparent;  
 }
 
 .loader {
