@@ -1,12 +1,12 @@
 const Nightmare = require('nightmare');
-const nightmare = Nightmare({ show: false });
+const nightmare = Nightmare({ show: true });
 const cheerio = require('cheerio');
 
 const go_to_page = async function(term, subject, course_number) {
 	const body = await nightmare
 		.goto('http://www.adm.uwaterloo.ca/infocour/CIR/SA/under.html')
+		.select('form > select', term)
 		.select('form > p:nth-child(13) > select', subject)
-		.wait(3000)
 		.type('form > p:nth-child(14) > input', course_number)
 		.click('form input[type="submit"]:nth-child(1)')
 		.wait('body > p:nth-child(4) > table')
@@ -19,10 +19,10 @@ const go_to_page = async function(term, subject, course_number) {
 		}];
 	}
 	const $ = cheerio.load(body, { lowerCaseTags: true});
-	return scrape_data($, subject, course_number);
+	return scrape_data($, term, subject, course_number);
 }
 
-const scrape_data = async function($, subject, course_number) {
+const scrape_data = async function($, term, subject, course_number) {
 	const course_title = $('body > p:nth-child(4) > table > tbody > tr:nth-child(2) > td:nth-child(4)').text();
 	let first_result = true;
 	const classes = $('table table:first-of-type > tbody > tr')
@@ -126,6 +126,7 @@ const scrape_data = async function($, subject, course_number) {
 				location,
 				time,
 				days,
+				term,
 			};
 		})
 		.toArray();

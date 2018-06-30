@@ -48,7 +48,7 @@ class ResultsContainer extends Component {
           <SearchComponent searching={this.props.searching} searched={this.props.searched} handleSubmit={this.props.handleSubmit}/>
           <div className="results">
             <h1>{results[0].course_code}</h1>
-            <h2>{results[0].course_title}</h2>
+            <h2>{results[0].course_title} | {results[0].term}</h2>
             <form action="http://localhost:8080/track" target="dummyframe" method="post">
               <table>
                 <thead>
