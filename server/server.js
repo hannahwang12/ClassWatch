@@ -38,7 +38,6 @@ const tracked_courses = firebase.app().database().ref();
 server.listen(port, () => console.log('Example server up on port 8080'));
 
 server.get('/', async (req, res) => {
-	console.log("ay");
 	let del_ref = firebase.app().database().ref().child("CS 245").child();	
 	del_ref.remove();
 });
