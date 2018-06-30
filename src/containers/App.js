@@ -15,14 +15,17 @@ class App extends Component {
       searching: false,
       searched: false,
       clickOut: true,
-      season: '5',
     }
     this.results = null;
   }
 
   changeSeason = (e) => {
-    this.setState({season: e.target.value.match(/\d\d\d(\d)/)[1]});
-    console.log(e.target.value.match(/\d\d\d(\d)/)[1]);
+    //this.setState({season: e.target.value.match(/\d\d\d(\d)/)[1]});
+    //console.log(e.target.value.match(/\d\d\d(\d)/)[1]);
+    var season = e.target.value.match(/\d\d\d(\d)/)[1];
+    document.getElementById("winter").style.opacity = (season == 1) ? "1.0" : "0.0";
+    document.getElementById("spring").style.opacity = (season == 5) ? "1.0" : "0.0";
+    document.getElementById("fall").style.opacity = (season == 9) ? "1.0" : "0.0";
   }
 
   handleSubmit = (e) => {
@@ -39,9 +42,8 @@ class App extends Component {
       this.forceUpdate();
   }
 
-  
-
   render() {
+    /*
     let background = SpringBackground;
     if (this.state.season === '1') {
       background = WinterBackground;
@@ -50,12 +52,22 @@ class App extends Component {
     } else if (this.state.season === '9') {
       background = FallBackground;
     }
-    console.log(background);
+    //console.log(background);
     const homeStyle = {
       backgroundImage: `url(${background})`,
     }
-    return (
-      <div className="home" style={homeStyle} onClick={this.clickOutside}>
+    */
+    return (           
+      <div className="home" onClick={this.clickOutside}>
+        <div className="background">
+          <img id="winter" src={require('../assets/img/forest2.jpg')} alt="Winter"/>
+        </div>
+        <div className="background" >
+          <img id="spring" src={require('../assets/img/forest.jpg')} alt="Spring"/>
+        </div>
+        <div className="background">
+          <img id="fall" src={require('../assets/img/mountains.jpg')} alt="Fall"/>
+        </div>          
         {this.state.searched ? null : 
           <div className="search">
             <div className="title">ClassWatch.</div>
