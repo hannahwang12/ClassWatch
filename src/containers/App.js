@@ -83,12 +83,12 @@ class App extends Component {
           <div className="search">
             <div className="title">ClassWatch.</div>
             <SearchComponent searching={this.state.searching} handleSubmit={this.handleSubmit} changeSeason={this.changeSeason}/>
+            <button className="removeButton" onClick={this.clickRemove}>Remove</button>
           </div>}
-        <button onClick={this.clickRemove}>remove</button>
         <div className="remove">
           <RemoveComponent display={this.state.removeDialog} exit={this.exitRemove}/>
         </div>        
-        {this.state.searched ? <ResultsContainer searching={this.state.searching} searched={this.state.searched} results={this.results} handleSubmit={this.handleSubmit} clickOut={this.state.clickOut}/> : null}
+        {this.state.searched ? <ResultsContainer searching={this.state.searching} searched={this.state.searched} results={this.results} handleSubmit={this.handleSubmit} clickOut={this.state.clickOut} changeSeason={this.changeSeason}/> : null}
       </div>
     );
   }
