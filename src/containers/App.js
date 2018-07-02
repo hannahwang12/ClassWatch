@@ -15,6 +15,7 @@ class App extends Component {
       searching: false,
       searched: false,
       clickOut: true,
+      removeDialog: "none",
     }
     this.results = null;
   }
@@ -39,7 +40,17 @@ class App extends Component {
 	}
 
   clickOutside = (e) => {
-      this.forceUpdate();
+    this.forceUpdate();
+    this.setState({removeDialog: "none"});    
+  }
+
+  clickRemove = (e) => {
+    this.setState({removeDialog: "block"});
+    e.stopPropagation();
+  }
+
+  exitRemove = (e) => {
+    this.setState({removeDialog: "none"});
   }
 
   render() {
@@ -67,14 +78,15 @@ class App extends Component {
         </div>
         <div className="background">
           <img id="fall" src={require('../assets/img/mountains.jpg')} alt="Fall"/>
-        </div>          
+        </div>
         {this.state.searched ? null : 
           <div className="search">
             <div className="title">ClassWatch.</div>
             <SearchComponent searching={this.state.searching} handleSubmit={this.handleSubmit} changeSeason={this.changeSeason}/>
           </div>}
+        <button onClick={this.clickRemove}>remove</button>
         <div className="remove">
-          <RemoveComponent />
+          <RemoveComponent display={this.state.removeDialog} exit={this.exitRemove}/>
         </div>        
         {this.state.searched ? <ResultsContainer searching={this.state.searching} searched={this.state.searched} results={this.results} handleSubmit={this.handleSubmit} clickOut={this.state.clickOut}/> : null}
       </div>

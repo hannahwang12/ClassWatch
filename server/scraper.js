@@ -1,5 +1,5 @@
 const Nightmare = require('nightmare');
-const nightmare = Nightmare({ show: true });
+const nightmare = Nightmare({ show: false });
 const cheerio = require('cheerio');
 
 const go_to_page = async function(term, subject, course_number) {

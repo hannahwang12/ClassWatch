@@ -70,11 +70,6 @@ input:focus {
   color: white;
 }
 
-.searchButton button {
-  border: none;
-  background-color: transparent;  
-}
-
 .loader {
   border: 0.3em solid rgba(255, 255, 255, 0.35);
   border-radius: 50%;
@@ -225,5 +220,36 @@ td {
 }
 
 .submitDialog button {
+  margin: 2vh 2vw;
+}
+
+.removeDialog {
+  background-color: rgba(0, 0, 0, 0.80);
+  width: 50vw;
+  height: 30vh;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 4px;
+}
+
+.removeDialog p {
+  padding: 0;
+  margin: 2vh 2vw 0vh 2vw;
+  cursor: pointer;
+  float: right;
+  clear: both;
+  color: white;
+  font-size: 25px;
+}
+
+.removeDialog input {
+  font-size: 35px;
+  width: 40vw;
+  margin: 2vh 2vw;
+}
+
+.removeDialog button {
   margin: 2vh 2vw;
 }
