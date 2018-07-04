@@ -80,7 +80,7 @@ class App extends Component {
           <div className="search">
             <div className="title">ClassWatch.</div>
             <SearchComponent searching={this.state.searching} handleSubmit={this.handleSubmit} changeSeason={this.changeSeason}/>
-            <button className="removeButton" onClick={this.clickRemove}>Remove</button>
+            <button className="removeButton" onClick={this.clickRemove}>Stop watching a course</button>
           </div>}
         <div className="remove">
           <RemoveComponent display={this.state.removeDialog} exit={this.exitRemove}/>
