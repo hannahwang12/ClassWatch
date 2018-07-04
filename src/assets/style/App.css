@@ -92,6 +92,7 @@ input:focus {
   background-repeat:no-repeat;
   background-attachment:fixed;
   background-size:cover;
+  background-position: center;
   height: 100vh;
   position: fixed;
   top: 0;

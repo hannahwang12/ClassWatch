@@ -4,9 +4,6 @@ import SearchComponent from '../components/SearchComponent.js';
 import RemoveComponent from '../components/RemoveComponent.js';
 import ResultsContainer from '../containers/ResultsContainer.js';
 import '../assets/style/App.css';
-import WinterBackground from '../assets/img/forest2.jpg';
-import SpringBackground from '../assets/img/forest.jpg';
-import FallBackground from '../assets/img/mountains.jpg';
 
 class App extends Component {
   constructor(props) {
@@ -71,13 +68,13 @@ class App extends Component {
     return (           
       <div className="home" onClick={this.clickOutside}>
         <div className="background">
-          <img id="winter" src={require('../assets/img/forest2.jpg')} alt="Winter"/>
+          <img id="winter" src={require('../assets/img/winter.jpg')} alt="Winter"/>
         </div>
         <div className="background" >
-          <img id="spring" src={require('../assets/img/forest.jpg')} alt="Spring"/>
+          <img id="spring" src={require('../assets/img/spring.jpg')} alt="Spring"/>
         </div>
         <div className="background">
-          <img id="fall" src={require('../assets/img/mountains.jpg')} alt="Fall"/>
+          <img id="fall" src={require('../assets/img/fall.jpg')} alt="Fall"/>
         </div>
         {this.state.searched ? null : 
           <div className="search">
