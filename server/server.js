@@ -167,7 +167,7 @@ function checkCourses() {
 								from: 'uw.classwatch.notif@gmail.com',
 								to: emails[n],
 								subject: "There's space for you in " + course_names[i] + ": " + sections_to_check[contains],
-								text: 'Current capacity is: ' + temp_results[j].reserve_enrol_total + '/' + temp_results[j].reserve_enrol_total + '. Your removal code is: ' + remove_codes[n] + '|' + course_names[i] + '|' + sections_to_check[contains]
+								text: 'Current capacity is: ' + temp_results[j].reserve_enrol_total + '/' + temp_results[j].reserve_enrol_cap + '. Your removal code is: ' + remove_codes[n] + '|' + course_names[i] + '|' + sections_to_check[contains]
 							};
 
 							transporter.sendMail(mailOptions, function(error, info){
