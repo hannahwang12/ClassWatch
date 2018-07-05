@@ -83,11 +83,11 @@ const scrape_data = async function($, term, subject, course_number) {
 					.split(',')[1]
 					.trim();
 			}
-			const enrol_total = $(row)
+			const enrol_cap = $(row)
 				.find(':nth-child(7)')
 				.text()
 				.trim();
-			const enrol_cap = $(row)
+			const enrol_total = $(row)
 				.find(':nth-child(8)')
 				.text()
 				.trim();
