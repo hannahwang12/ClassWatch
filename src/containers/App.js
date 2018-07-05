@@ -51,30 +51,13 @@ class App extends Component {
   }
 
   render() {
-    /*
-    let background = SpringBackground;
-    if (this.state.season === '1') {
-      background = WinterBackground;
-    } else if (this.state.season === '5') {
-      background = SpringBackground;
-    } else if (this.state.season === '9') {
-      background = FallBackground;
-    }
-    //console.log(background);
-    const homeStyle = {
-      backgroundImage: `url(${background})`,
-    }
-    */
     return (           
       <div className="home" onClick={this.clickOutside}>
-        <div className="background">
-          <img id="winter" src={require('../assets/img/winter.jpg')} alt="Winter"/>
+        <div className="backgroundImg" id="winter">
         </div>
-        <div className="background" >
-          <img id="spring" src={require('../assets/img/spring.jpg')} alt="Spring"/>
+        <div className="backgroundImg" id="spring" >
         </div>
-        <div className="background">
-          <img id="fall" src={require('../assets/img/fall.jpg')} alt="Fall"/>
+        <div className="backgroundImg" id="fall">
         </div>
         {this.state.searched ? null : 
           <div className="search">
