@@ -20,7 +20,8 @@ class App extends Component {
   changeSeason = (e) => {
     //this.setState({season: e.target.value.match(/\d\d\d(\d)/)[1]});
     //console.log(e.target.value.match(/\d\d\d(\d)/)[1]);
-    var season = e.target.value.match(/\d\d\d(\d)/)[1];
+    //var season = e.target.value.match(/\d\d\d(\d)/)[1];
+    var season = e.match(/\d\d\d(\d)/)[1];;
     document.getElementById("winter").style.opacity = (season == 1) ? "1.0" : "0.0";
     document.getElementById("spring").style.opacity = (season == 5) ? "1.0" : "0.0";
     document.getElementById("fall").style.opacity = (season == 9) ? "1.0" : "0.0";
