@@ -25,12 +25,19 @@ body {
   position: relative;
 }
 
-.term-select {
-  position: fixed;
+.select-term {
   width: 15em;
+  position: fixed;
   top: 2em;
   left: 2em;
 }
+
+/*
+.option {
+  background-color: rgba(0, 0, 0, 0.4);
+  color: white;
+}
+*/
 
 .home input {
   font-size: 3em;
@@ -47,7 +54,6 @@ body {
 input:focus {
   outline: none;
 }
-
 
 ::-webkit-input-placeholder {
   color: white;
@@ -250,7 +256,7 @@ button {
   left: 50%;
   transform: translate(-50%, 0);
   color:  rgba(255, 255, 255, 0.8);
-  border-color:  rgba(255, 255, 255, 0.8);    
+  border-color:  rgba(255, 255, 255, 0.8);
 }
 
 .removeButton:hover {
