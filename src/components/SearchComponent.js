@@ -75,7 +75,7 @@ class SearchComponent extends Component {
       singleValue: base => ({ ...base, color: 'white' }),
       dropdownIndicator: (base, state) => {
         return {padding: '8',
-                color: 'white',
+                color: state.isFocused ? 'white' : 'rgba(255, 255, 255, 0.6)' ,
                 display: 'flex',
                 boxSizing: 'border-box',
         }},

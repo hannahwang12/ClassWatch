@@ -10,7 +10,12 @@ class RowComponent extends Component {
     if (rowData.reserve) {
       return (
         <tr className="reserveRow">
-          <td><input className="checkbox" type="checkbox" name="sections[]" value={rowData.section} onClick={this.props.onCheck}/></td>
+          <td>
+            <label className="container">
+                <input className="checkbox" type="checkbox" name="sections[]" value={rowData.section} onClick={this.props.onCheck}/>
+                <span className="checkmark"></span>
+            </label>
+          </td>
           <td colSpan="5" className="reserveCell">{rowData.reserve}</td>
           <td>{rowData.reserve_enrol_total} / {rowData.reserve_enrol_cap}</td>
         </tr>
@@ -18,7 +23,12 @@ class RowComponent extends Component {
     } else {
       return (
         <tr>
-          <td><input className="checkbox" type="checkbox" name="sections[]" value={rowData.section} onClick={this.props.onCheck}/></td>
+          <td>
+            <label className="container">
+                <input className="checkbox" type="checkbox" name="sections[]" value={rowData.section} onClick={this.props.onCheck}/>
+                <span className="checkmark"></span>
+            </label>
+          </td>
           <td>{rowData.section}</td>
           <td>{rowData.instructor}</td>
           <td>{rowData.days ? rowData.days.toString().replace(/,/g, ', ') : null}</td>
