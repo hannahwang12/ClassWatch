@@ -203,6 +203,10 @@ td {
   text-align: left;
 }
 
+.checkbox {
+  display: none;
+}
+
 button {
   padding: 0.5em;
   font-family: Montserrat;
@@ -250,18 +254,25 @@ button {
   margin: 2vh 2vw;
 }
 
+.submitDialog button:hover {
+  margin: 2vh 2vw;
+  color: teal;
+  border-color: teal;
+  cursor: pointer;
+}
+
 .removeButton {
   position: fixed;
   bottom: 10vh;
   left: 50%;
   transform: translate(-50%, 0);
-  color:  rgba(255, 255, 255, 0.8);
-  border-color:  rgba(255, 255, 255, 0.8);
+  color: rgba(255, 255, 255, 0.8);
+  border-color: rgba(255, 255, 255, 0.8);
 }
 
 .removeButton:hover {
-  color: white;
-  border-color: white;
+  color: teal;
+  border-color: teal;
   cursor: pointer;
 }
 
@@ -294,4 +305,68 @@ button {
 
 .removeDialog button {
   margin: 2vh 2vw;
+  color: rgba(255, 255, 255, 0.8);
+  border-color: rgba(255, 255, 255, 0.8);
+}
+
+.removeDialog button:hover {
+  color: white;
+  border-color: white;
+  cursor: pointer;
+}
+
+.container {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-left: 15px;
+  margin-bottom: 16px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 15px;
+  width: 15px;
+  background-color: none;
+  border: solid 1px white;
+}
+
+.container:hover input ~ .checkmark {
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.container input:checked ~ .checkmark:after {
+    display: block;
+}
+
+.container .checkmark:after {
+    left: 4px;
+    top: 0px;
+    width: 4px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
 }

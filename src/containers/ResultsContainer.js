@@ -53,7 +53,6 @@ class ResultsContainer extends Component {
     const searchStyle = {
       color: 'green',
     }
-    console.log(results);
     const results = this.props.results;
     const course_name = results[0].course_code;
     const term = results[0].term;
