@@ -16,6 +16,7 @@ const go_to_page = async function(term, subject, course_number) {
 	if (/sorry, but your query had no matches/i.test(body)) {
 		return [{
 			course_code: `${subject} ${course_number}`,
+			term,
 		}];
 	}
 	const $ = cheerio.load(body, { lowerCaseTags: true});
@@ -115,6 +116,7 @@ const scrape_data = async function($, term, subject, course_number) {
 			const days = time_and_days
 				.substring(11)
 				.match(/([A-Z][a-z]*)/g);
+			const date = time_and_days.match(/\d\d\/\d\d/);
 			return {
 				course_code: `${subject} ${course_number}`,
 				course_title,
@@ -126,6 +128,7 @@ const scrape_data = async function($, term, subject, course_number) {
 				location,
 				time,
 				days,
+				date,
 				term,
 			};
 		})

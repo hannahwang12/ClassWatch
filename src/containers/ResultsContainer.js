@@ -50,15 +50,11 @@ class ResultsContainer extends Component {
   }
 
   render() {
-    const searchStyle = {
-      color: 'green',
-    }
     const results = this.props.results;
     const course_name = results[0].course_code;
     const term = results[0].term;
     const season = this.get_season(term);
     const year = `201${term.charAt(2)}`
-    if (term)
     if (results[0].course_title) {
       return (
         <div className="resultsPage">
@@ -68,7 +64,7 @@ class ResultsContainer extends Component {
                 el.style.setProperty('padding', '1em', 'important');
               }
             }}>
-            <SearchComponent style={searchStyle} searching={this.props.searching} searched={this.props.searched} handleSubmit={this.props.handleSubmit} changeSeason={this.props.changeSeason}/>
+            <SearchComponent searching={this.props.searching} searched={this.props.searched} handleSubmit={this.props.handleSubmit} changeSeason={this.props.changeSeason}/>
           </div>
           <div className="results">
             <h1>{results[0].course_code}</h1>
@@ -103,7 +99,14 @@ class ResultsContainer extends Component {
     } else {
       return (
         <div className="resultsPage">
-          <SearchComponent className="resultsSearch" searching={this.props.searching} searched={this.props.searched} handleSubmit={this.props.handleSubmit}/>
+          <div ref={(el) => {
+                if (el) {
+                  el.style.setProperty('font-size', '0.8em', 'important');
+                  el.style.setProperty('padding', '1em', 'important');
+                }
+              }}>
+            <SearchComponent searching={this.props.searching} searched={this.props.searched} handleSubmit={this.props.handleSubmit}/>
+          </div>
           <div className="results">
             <h1>{results[0].course_code}</h1>
             <p>No classes found :(</p>
