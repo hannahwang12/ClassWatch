@@ -30,7 +30,6 @@ class App extends Component {
   handleSubmit = (e) => {
     this.setState({searching: true});
     axios.get("http://localhost:8080/data").then(response => {
-      console.log(response.data);
       this.results = response.data;
       this.setState({searching: false});
       this.setState({searched: true});
