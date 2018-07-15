@@ -89,8 +89,10 @@ class ResultsContainer extends Component {
               <button className="button" onClick={ this.watchClasses }>Watch</button>
               <iframe width="0" height="0" border="0" name="dummyframe" id="dummyframe" display="none" frameBorder="0"></iframe>
               <input type="hidden" name="course_name" display="none" value={course_name}></input>
-              <div className="submitDialog" style={{ display: this.state.submitDialog }} onClick={this.clickDialog}>
-                <SubmitComponent exit={this.exitSubmit} onSubmit={this.onSubmit}/>
+              <div className="overlay" style={{ display: this.state.submitDialog }}>
+                <div className="submitDialog" style={{ display: this.state.submitDialog }} onClick={this.clickDialog}>
+                  <SubmitComponent exit={this.exitSubmit} onSubmit={this.onSubmit}/>
+                </div>
               </div>
             </form>
           </div>
