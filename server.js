@@ -2,6 +2,7 @@ const http = require('http');
 const fs = require('fs');
 const path = require('path');
 const express = require('express');
+const favicon = require('serve-favicon');
 const server = express();
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -50,8 +51,9 @@ const transporter = nodemailer.createTransport({
 	}
 });
 
-
+// Heroku deployment
 server.use(express.static(path.join(__dirname, 'client/build')));
+server.use(favicon(path.join(__dirname, 'client/public/favicon.ico')));
 server.listen(port, () => console.log('Example server up on port 8080'));
 
 server.get("/test", async (req, res) => {
@@ -73,7 +75,6 @@ server.post("/remove", async (req, res) => {
 	let remove_info = req.body.code.split('|');
 	let del_ref = firebase.app().database().ref().child(remove_info[1]).child(remove_info[2]).child(remove_info[0]);	
 	del_ref.remove();
-	res.send("byte");
 });
 
 server.post('/scrape', async (req, res) => {
@@ -83,7 +84,6 @@ server.post('/scrape', async (req, res) => {
 	const course_number = course_code.match(/\d+./)[0].trim();
 	results = await scraper.go_to_page(term, subject, course_number);
 	em.emit("complete", null); //Emit the event that the get request is listening for
-	res.send("byte");
 });
 
 // When you get a request, call the Promise and send results when it's complete

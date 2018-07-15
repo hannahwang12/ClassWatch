@@ -9,7 +9,6 @@
     "axios": "^0.18.0",
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
-    "react-favicon": "0.0.14",
     "react-scripts": "1.1.4",
     "react-select": "^2.0.0-beta.7",
     "webpack": "^3.11.0"
