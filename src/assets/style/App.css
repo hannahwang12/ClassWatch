@@ -91,7 +91,6 @@ input:focus {
 }
 
 .backgroundImg {
-   
   position: fixed;
   top: 0;
   left: 0;
@@ -133,6 +132,63 @@ input:focus {
   background-attachment:fixed;
   background-size:cover;
   background-position: center; 
+}
+
+
+.removeButton {
+  position: fixed;
+  bottom: 10vh;
+  left: 50%;
+  transform: translate(-50%, 0);
+  color: rgba(255, 255, 255, 0.8);
+  border-color: rgba(255, 255, 255, 0.8);
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.removeButton:hover {
+  color: white;
+  border-color: white;
+  cursor: pointer;
+}
+
+.removeDialog {
+  background-color: rgba(0, 0, 0, 0.80);
+  width: 50vw;
+  height: 30vh;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 4px;
+}
+
+.removeDialog p {
+  padding: 0;
+  margin: 2vh 2vw 0vh 2vw;
+  cursor: pointer;
+  float: right;
+  clear: both;
+  color: white;
+  font-size: 25px;
+}
+
+.removeDialog input {
+  font-size: 35px;
+  width: 40vw;
+  margin: 2vh 2vw;
+}
+
+.removeDialog button {
+  margin: 2vh 2vw;
+  color: rgba(255, 255, 255, 0.8);
+  border-color: rgba(255, 255, 255, 0.8);
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.removeDialog button:hover {
+  color: white;
+  border-color: white;
+  cursor: pointer;
 }
 
 .resultsPage {
@@ -206,9 +262,15 @@ button {
   display: none;
 }
 
+.button {
+  color: rgba(255, 255, 255, 0.8);
+  border-color: rgba(255, 255, 255, 0.8);
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
 .button:hover {
-  color: teal;
-  border-color: teal;
+  color: white;
+  border-color: white;
   cursor: pointer;
 }
 
@@ -218,7 +280,6 @@ button {
   padding-left: 35px;
   margin-left: 15px;
   margin-bottom: 16px;
-  cursor: pointer;
   font-size: 22px;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -243,7 +304,7 @@ button {
 }
 
 .container:hover input ~ .checkmark {
-    background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.4);
 }
 
 .checkmark:after {
@@ -301,60 +362,6 @@ button {
 
 .submitDialog button:hover {
   margin: 2vh 2vw;
-  color: teal;
-  border-color: teal;
-  cursor: pointer;
-}
-
-.removeButton {
-  position: fixed;
-  bottom: 10vh;
-  left: 50%;
-  transform: translate(-50%, 0);
-  color: rgba(255, 255, 255, 0.8);
-  border-color: rgba(255, 255, 255, 0.8);
-}
-
-.removeButton:hover {
-  color: teal;
-  border-color: teal;
-  cursor: pointer;
-}
-
-.removeDialog {
-  background-color: rgba(0, 0, 0, 0.80);
-  width: 50vw;
-  height: 30vh;
-  position: fixed;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  border-radius: 4px;
-}
-
-.removeDialog p {
-  padding: 0;
-  margin: 2vh 2vw 0vh 2vw;
-  cursor: pointer;
-  float: right;
-  clear: both;
-  color: white;
-  font-size: 25px;
-}
-
-.removeDialog input {
-  font-size: 35px;
-  width: 40vw;
-  margin: 2vh 2vw;
-}
-
-.removeDialog button {
-  margin: 2vh 2vw;
-  color: rgba(255, 255, 255, 0.8);
-  border-color: rgba(255, 255, 255, 0.8);
-}
-
-.removeDialog button:hover {
   color: white;
   border-color: white;
   cursor: pointer;
