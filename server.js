@@ -1,5 +1,6 @@
 const http = require('http');
 const fs = require('fs');
+const path = require('path');
 const express = require('express');
 const server = express();
 const bodyParser = require('body-parser');
@@ -10,7 +11,7 @@ const events = require('events');
 const nodemailer = require('nodemailer');
 
 const hostname = '127.0.0.1';
-const port = 8080;
+const port = process.env.PORT || 8080;
 let results;
 let em = new events.EventEmitter();
 
@@ -35,11 +36,26 @@ firebase.initializeApp({
 // Reference to database, this is automatically the root
 const tracked_courses = firebase.app().database().ref();
 
+// uw.classwatch.notif@gmail.com
+// UWclasswatch!
+
+// ------------------------
+// NODEMAILER
+// ------------------------
+const transporter = nodemailer.createTransport({
+	service: 'gmail',
+	auth: {
+		user: 'uw.classwatch.notif@gmail.com',
+		pass: 'UWclasswatch!'
+	}
+});
+
+
+server.use(express.static(path.join(__dirname, 'client/build')));
 server.listen(port, () => console.log('Example server up on port 8080'));
 
-server.get('/', async (req, res) => {
-	let del_ref = firebase.app().database().ref().child("CS 245").child();	
-	del_ref.remove();
+server.get("/test", async (req, res) => {
+	res.send("Hello World\n");
 });
 
 server.post("/track", async (req, res) => {
@@ -57,21 +73,6 @@ server.post("/remove", async (req, res) => {
 	let remove_info = req.body.code.split('|');
 	let del_ref = firebase.app().database().ref().child(remove_info[1]).child(remove_info[2]).child(remove_info[0]);	
 	del_ref.remove();
-});
-
-
-// uw.classwatch.notif@gmail.com
-// UWclasswatch!
-
-// ------------------------
-// NODEMAILER
-// ------------------------
-const transporter = nodemailer.createTransport({
-	service: 'gmail',
-	auth: {
-		user: 'uw.classwatch.notif@gmail.com',
-		pass: 'UWclasswatch!'
-	}
 });
 
 server.post('/scrape', async (req, res) => {
