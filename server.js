@@ -2,6 +2,7 @@ const http = require('http');
 const fs = require('fs');
 const path = require('path');
 const express = require('express');
+const favicon = require('serve-favicon');
 const server = express();
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -52,6 +53,7 @@ const transporter = nodemailer.createTransport({
 
 // Heroku deployment
 server.use(express.static(path.join(__dirname, 'client/build')));
+server.use(favicon(path.join(__dirname, 'client/public/favicon.ico')));
 server.listen(port, () => console.log('Example server up on port 8080'));
 
 server.get("/test", async (req, res) => {

@@ -9,7 +9,8 @@
     "express": "^4.16.3",
     "firebase": "^5.0.4",
     "nightmare": "^3.0.1",
-    "nodemailer": "^4.6.7"
+    "nodemailer": "^4.6.7",
+    "serve-favicon": "^2.5.0"
   },
   "description": "This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).",
   "main": "server.js",
@@ -17,7 +18,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
     "dev": "node server.js && cd client && npm start",
-	"heroku-postbuild": "cd client && npm install && npm run build"
+    "heroku-postbuild": "cd client && npm install && npm run build"
   },
   "repository": {
     "type": "git",
