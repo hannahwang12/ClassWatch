@@ -84,7 +84,7 @@ class SearchComponent extends Component {
     return (
       <div className="searchBar">
         <iframe width="0" height="0" border="0" name="dummyframe" id="dummyframe" display="none" frameBorder="0"></iframe>
-        <form id="searchForm" action="http://localhost:8080/scrape" method="post" onSubmit={this.setLoading} onKeyPress={this.handleKeyPress} target="dummyframe" autoComplete="off">
+        <form id="searchForm" action="/scrape" method="post" onSubmit={this.setLoading} onKeyPress={this.handleKeyPress} target="dummyframe" autoComplete="off">
           {/*<select name="term" onChange={this.props.changeSeason}>
             <option value="1179">Fall 2017</option>
             <option value="1181">Winter 2018</option>

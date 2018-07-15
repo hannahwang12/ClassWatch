@@ -69,7 +69,7 @@ class ResultsContainer extends Component {
           <div className="results">
             <h1>{results[0].course_code}</h1>
             <h2>{results[0].course_title} | {season} {year}</h2>
-            <form action="http://localhost:8080/track" target="dummyframe" method="post">
+            <form action="/track" target="dummyframe" method="post">
               <table>
                 <thead>
                   <tr>
