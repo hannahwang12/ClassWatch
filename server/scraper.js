@@ -37,7 +37,7 @@ const scrape_data = async function($, term, subject, course_number) {
 				first_result = false;
 			}
 			const type = section.substring(0, 3);
-			return (type != 'TST') && first_result;
+			return /*(type != 'TST') &&*/ first_result;
 		})
 		.map((index, row) => {
 			if ($(row).find('i').text().indexOf('Reserve') >= 0) {
@@ -59,11 +59,38 @@ const scrape_data = async function($, term, subject, course_number) {
 						.trim();
 					i++;
 				}
+				const instructor_lastname = $(row)
+					.find(':nth-child(8)')
+					.text()
+					.split(',')[0]
+					.trim();
+				let instructor_firstname = '';
+				if (instructor_lastname != '') {
+					instructor_firstname = $(row)
+						.find(':nth-child(8)')
+						.text()
+						.split(',')[1]
+						.trim();
+				}
+				console.log(instructor_firstname);
+				const time_and_days = $(row)
+					.find(':nth-child(6)')
+					.text()
+					.trim();
+				const time = time_and_days.substring(0, 11);
+				const days = time_and_days
+					.substring(11)
+					.match(/([A-Z][a-z]*)/g);
+				const date = time_and_days.match(/\d\d\/\d\d/);
 				return {
 					section: `${section} RES${i}`,
 					reserve,
 					reserve_enrol_cap,
 					reserve_enrol_total,
+					instructor: `${instructor_firstname} ${instructor_lastname}`,
+					time,
+					days,
+					date,
 				};
 			}
 			const section = $(row)

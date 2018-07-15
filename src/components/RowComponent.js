@@ -17,7 +17,8 @@ class RowComponent extends Component {
                 <span className="checkmark"></span>
             </label>
           </td>
-          <td colSpan="2" className="reserveCell">{rowData.reserve}</td>
+          <td className="reserveCell">{rowData.reserve}</td>
+          <td>{rowData.instructor}</td>
           <td>{rowData.days ? rowData.days.toString().replace(/,/g, ', ') : null} {rowData.date ? rowData.date[0] : null}</td>
           <td>{rowData.time}</td>
           <td>{rowData.location}</td>
@@ -42,7 +43,8 @@ class RowComponent extends Component {
       return (
         <tr className="reserveRow">
           <td></td>
-          <td colSpan="2"></td>
+          <td></td>
+          <td>{rowData.instructor}</td>
           <td>{rowData.days ? rowData.days.toString().replace(/,/g, ', ') : null} {rowData.date ? rowData.date[0] : null}</td>
           <td>{rowData.time}</td>
           <td>{rowData.location}</td>
