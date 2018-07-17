@@ -59,7 +59,8 @@ class SearchComponent extends Component {
                             left: '2em',
                             width: '15em',
                             fontFamily: 'Montserrat',
-                            color: 'white', 
+                            color: 'white',
+                            zIndex: '999',
                             backgroundColor: 'rgba(0, 0, 0, 0.4)'}),
       option: (base, state) => { 
         return {...base,

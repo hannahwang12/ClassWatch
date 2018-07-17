@@ -11,7 +11,6 @@ const firebase = require('firebase');
 const events = require('events');
 const nodemailer = require('nodemailer');
 
-const hostname = '127.0.0.1';
 const port = process.env.PORT || 8080;
 let results;
 let em = new events.EventEmitter();
@@ -54,11 +53,7 @@ const transporter = nodemailer.createTransport({
 // Heroku deployment
 server.use(express.static(path.join(__dirname, 'client/build')));
 server.use(favicon(path.join(__dirname, 'client/public/favicon.ico')));
-server.listen(port, () => console.log('Example server up on port 8080'));
-
-server.get("/test", async (req, res) => {
-	res.send("Hello World\n");
-});
+server.listen(port);
 
 server.post("/track", async (req, res) => {
 	const sections = req.body.sections;
@@ -69,12 +64,14 @@ server.post("/track", async (req, res) => {
 	for (var i = 0; i < len; ++i) {
 		tracked_courses.child(name).child(sections[i]).push(email);
 	}
+	res.sendStatus(200);
 });
 
 server.post("/remove", async (req, res) => {
 	let remove_info = req.body.code.split('|');
 	let del_ref = firebase.app().database().ref().child(remove_info[1]).child(remove_info[2]).child(remove_info[0]);	
 	del_ref.remove();
+	res.sendStatus(200);
 });
 
 server.post('/scrape', async (req, res) => {
@@ -84,6 +81,7 @@ server.post('/scrape', async (req, res) => {
 	const course_number = course_code.match(/\d+./)[0].trim();
 	results = await scraper.go_to_page(term, subject, course_number);
 	em.emit("complete", null); //Emit the event that the get request is listening for
+	res.sendStatus(200);
 });
 
 // When you get a request, call the Promise and send results when it's complete
@@ -151,15 +149,18 @@ function checkCourses() {
 							const mailOptions = {
 								from: 'uw.classwatch.notif@gmail.com',
 								to: emails[n],
-								subject: "There's space for you in " + course_names[i] + ": " + sections_to_check[contains],
-								text: 'Current capacity is: ' + temp_results[j].enrol_total + '/' + temp_results[j].enrol_cap + '. Your removal code is: ' + remove_codes[n] + '|' + course_names[i] + '|' + sections_to_check[contains]
+								subject: "There's space for you in " + course_names[i] + ": " + sections_to_check[contains] + "!",
+								html: `<p style="font-size: 16px">The enrolment capacity for this class is currently ` + temp_results[j].enrol_total + `/` + temp_results[j].enrol_cap + `.
+									  \nTo stop receiving notifications about this class, enter your removal code at http://classwatch.ca-central-1.elasticbeanstalk.com/.</p>
+									  <p style="font-size: 15px">Your code for this class is: ` + remove_codes[n] + `|` + course_names[i] + `|` + sections_to_check[contains] + `</p>
+									  <p>ClassWatch works by scraping UWaterloo's publicly available enrolment numbers, which are updated every half hour between 8:00am and 8:00pm. This application is entirely student-run and continuously being updated so please send us your
+									  feedback by replying to this email.</p>`,
 							};
 
 							transporter.sendMail(mailOptions, function(error, info){
 								if (error) {
 									console.log(error);
 								} else {
-									console.log('email sent');
 								}
 							});
 
@@ -170,14 +171,17 @@ function checkCourses() {
 								from: 'uw.classwatch.notif@gmail.com',
 								to: emails[n],
 								subject: "There's space for you in " + course_names[i] + ": " + sections_to_check[contains],
-								text: 'Current capacity is: ' + temp_results[j].reserve_enrol_total + '/' + temp_results[j].reserve_enrol_cap + '. Your removal code is: ' + remove_codes[n] + '|' + course_names[i] + '|' + sections_to_check[contains]
+								html: `<p style="font-size: 16px">The enrolment capacity for this class is currently ` +  temp_results[j].reserve_enrol_total + `/` + temp_results[j].reserve_enrol_cap + `.
+									  \nTo stop receiving notifications about this class, enter your removal code at http://classwatch.ca-central-1.elasticbeanstalk.com/.</p>
+									  <p style="font-size: 15px">Your code for this class is: ` + remove_codes[n] + `|` + course_names[i] + `|` + sections_to_check[contains] + `</p>
+									  <p>ClassWatch works by scraping UWaterloo's publicly available enrolment numbers, which are updated every half hour between 8:00am and 8:00pm. This application is entirely student-run and continuously being updated so please send us your
+									  feedback by replying to this email.</p>`,
 							};
 
 							transporter.sendMail(mailOptions, function(error, info){
 								if (error) {
 									console.log(error);
 								} else {
-									console.log('email sent');
 								}
 							});
 						}

@@ -38,7 +38,7 @@ class App extends Component {
 
   clickOutside = (e) => {
     this.forceUpdate();
-    this.setState({removeDialog: "none"});    
+    this.setState({removeDialog: "none"});   
   }
 
   clickRemove = (e) => {
@@ -67,7 +67,7 @@ class App extends Component {
           </div>}
         <div className="remove">
           <RemoveComponent display={this.state.removeDialog} exit={this.exitRemove}/>
-        </div>        
+        </div>       
         {this.state.searched ? <ResultsContainer searching={this.state.searching} searched={this.state.searched} results={this.results} handleSubmit={this.handleSubmit} clickOut={this.state.clickOut} changeSeason={this.changeSeason}/> : null}
       </div>
     );

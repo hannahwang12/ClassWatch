@@ -1,12 +1,17 @@
 body {
   margin: 0;
+  border: 0;
   padding: 0;
+  outline: 0;
+  height: 100vh;
+  width: 100vw;
   font-family: sans-serif;
 }
 
 .home {
   text-align: center;
-  min-height: 100vh;
+  height: 100vh;
+  width: 100vw;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -103,13 +108,13 @@ input:focus {
 }
 
 #winter {
-  background: url('../img/winter4.jpg');
+  background: url('../img/winter.jpg');
   height: 100vh;
   width: 100vw;
   background-repeat:no-repeat;
   background-attachment:fixed;
   background-size:cover;
-  background-position: center; 
+  background-position:center; 
 }
 
 #spring {
@@ -119,7 +124,7 @@ input:focus {
   background-repeat:no-repeat;
   background-attachment:fixed;
   background-size:cover;
-  background-position: center; 
+  background-position:center; 
 }
 
 #fall {
@@ -131,7 +136,7 @@ input:focus {
   background-repeat:no-repeat;
   background-attachment:fixed;
   background-size:cover;
-  background-position: center; 
+  background-position:center; 
 }
 
 .overlay {
