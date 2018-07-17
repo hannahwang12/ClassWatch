@@ -2,6 +2,7 @@
   "name": "uwclasswatch",
   "version": "1.0.0",
   "dependencies": {
+    "bluebird": "^3.5.1",
     "body-parser": "^1.18.3",
     "cheerio": "^1.0.0-rc.2",
     "cors": "^2.8.4",
@@ -10,6 +11,7 @@
     "firebase": "^5.0.4",
     "nightmare": "^3.0.1",
     "nodemailer": "^4.6.7",
+    "request": "^2.87.0",
     "serve-favicon": "^2.5.0"
   },
   "description": "This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).",
