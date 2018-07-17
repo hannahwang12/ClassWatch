@@ -4,6 +4,7 @@ const cheerio = require('cheerio');
 
 const go_to_page = async function(term, subject, course_number) {
 	console.log("2");
+	console.log("2.5");
 	var body = await nightmare
 		.goto('http://www.adm.uwaterloo.ca/infocour/CIR/SA/under.html');
 	console.log("here 1");
@@ -32,7 +33,6 @@ const go_to_page = async function(term, subject, course_number) {
 			term,
 		}];
 	}
-	console.log("2.5");
 	const $ = cheerio.load(body, { lowerCaseTags: true});
 	console.log("3");
 	return scrape_data($, term, subject, course_number);
