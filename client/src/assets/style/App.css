@@ -203,7 +203,7 @@ input:focus {
   background-color: rgba(0, 0, 0, 0.5);
   color: white;
   font-family: Montserrat;
-  display: flex;  
+  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
