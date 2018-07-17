@@ -53,11 +53,7 @@ const transporter = nodemailer.createTransport({
 // Heroku deployment
 server.use(express.static(path.join(__dirname, 'client/build')));
 server.use(favicon(path.join(__dirname, 'client/public/favicon.ico')));
-server.listen(port, () => console.log('Example server up on port 8080'));
-
-server.get("/test", async (req, res) => {
-	res.send("Hello World\n");
-});
+server.listen(port);
 
 server.post("/track", async (req, res) => {
 	const sections = req.body.sections;
@@ -69,10 +65,6 @@ server.post("/track", async (req, res) => {
 		tracked_courses.child(name).child(sections[i]).push(email);
 	}
 	res.sendStatus(200);
-});
-
-server.get("/get", async (req, res) => {
-	res.send("test");
 });
 
 server.post("/remove", async (req, res) => {
@@ -87,7 +79,6 @@ server.post('/scrape', async (req, res) => {
 	const course_code = req.body.course;
 	const subject = course_code.match(/[A-z]+/)[0].trim();
 	const course_number = course_code.match(/\d+./)[0].trim();
-	console.log("1");
 	results = await scraper.go_to_page(term, subject, course_number);
 	em.emit("complete", null); //Emit the event that the get request is listening for
 	res.sendStatus(200);
@@ -166,7 +157,6 @@ function checkCourses() {
 								if (error) {
 									console.log(error);
 								} else {
-									console.log('email sent');
 								}
 							});
 
@@ -184,7 +174,6 @@ function checkCourses() {
 								if (error) {
 									console.log(error);
 								} else {
-									console.log('email sent');
 								}
 							});
 						}

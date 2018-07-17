@@ -43,9 +43,6 @@ class App extends Component {
 
   clickRemove = (e) => {
     this.setState({removeDialog: "block"});
-    axios.get("/get").then(response => {
-      console.log(response);
-    });
     e.stopPropagation();
   }
 
