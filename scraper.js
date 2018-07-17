@@ -1,32 +1,34 @@
-const Nightmare = require('nightmare');
-const nightmare = Nightmare({ show: false });
+const request = require('request');
+const Promise = require('bluebird');
 const cheerio = require('cheerio');
 
 const go_to_page = async function(term, subject, course_number) {
-	console.log("2");
-	console.log("2.5");
-	var body = await nightmare
-		.goto('http://www.adm.uwaterloo.ca/infocour/CIR/SA/under.html');
-	console.log("here 1");
-	body = await nightmare
-		.select('form > select', term);
-	console.log("here 2");
-	body = await nightmare
-		.select('form > p:nth-child(13) > select', subject);
-	console.log("here 3");
-	body = await nightmare
-		.type('form > p:nth-child(14) > input', course_number);
-	console.log("here 4");
-	body = await nightmare
-		.click('form input[type="submit"]:nth-child(1)');
-	console.log("here 5");
-	body = await nightmare
-		.wait('body > p:nth-child(4) > table')
-	console.log("here 6");
-	body = await nightmare
-		.evaluate(() => {
-			return document.body.innerHTML;
-		});
+	const headers = {
+		Origin: 'http://www.adm.uwaterloo.ca',
+		'Content-Type': 'application/x-www-form-urlencoded',
+		Accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+	}
+	const form = {
+		level: 'under',
+		sess: term,
+		subject: subject,
+		cournum: course_number,
+	};
+	const body = await Promise.fromCallback((cb) => request.post({
+		url: 'http://www.adm.uwaterloo.ca/cgi-bin/cgiwrap/infocour/salook.pl', 
+		form,
+		headers, 
+	}, (err, res, body) => cb(null, body)));
+	// const body = await nightmare
+	// 	.goto('http://www.adm.uwaterloo.ca/infocour/CIR/SA/under.html')
+	// 	.select('form > select', term)
+	// 	.select('form > p:nth-child(13) > select', subject)
+	// 	.type('form > p:nth-child(14) > input', course_number)
+	// 	.click('form input[type="submit"]:nth-child(1)')
+	// 	.wait('body > p:nth-child(4) > table')
+	// 	.evaluate(() => {
+	// 		return document.body.innerHTML;
+	// 	});
 	if (/sorry, but your query had no matches/i.test(body)) {
 		return [{
 			course_code: `${subject} ${course_number}`,
@@ -34,9 +36,9 @@ const go_to_page = async function(term, subject, course_number) {
 		}];
 	}
 	const $ = cheerio.load(body, { lowerCaseTags: true});
-	console.log("3");
 	return scrape_data($, term, subject, course_number);
 }
+
 
 const scrape_data = async function($, term, subject, course_number) {
 	const course_title = $('body > p:nth-child(4) > table > tbody > tr:nth-child(2) > td:nth-child(4)').text();
@@ -87,7 +89,6 @@ const scrape_data = async function($, term, subject, course_number) {
 						.split(',')[1]
 						.trim();
 				}
-				console.log(instructor_firstname);
 				const time_and_days = $(row)
 					.find(':nth-child(6)')
 					.text()
