@@ -19,8 +19,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "dev": "node server.js && cd client && npm start",
-    "heroku-postbuild": "cd client && npm install && npm run build"
+  	"heroku-postbuild": "cd client && npm install && npm run build"
   },
   "repository": {
     "type": "git",

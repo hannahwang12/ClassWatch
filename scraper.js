@@ -39,6 +39,7 @@ const go_to_page = async function(term, subject, course_number) {
 	return scrape_data($, term, subject, course_number);
 }
 
+
 const scrape_data = async function($, term, subject, course_number) {
 	const course_title = $('body > p:nth-child(4) > table > tbody > tr:nth-child(2) > td:nth-child(4)').text();
 	let first_result = true;
@@ -175,6 +176,7 @@ const scrape_data = async function($, term, subject, course_number) {
 			};
 		})
 		.toArray();
+	console.log("5");
 	return classes;
 }
 
