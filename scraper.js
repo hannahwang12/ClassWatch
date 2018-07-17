@@ -31,12 +31,12 @@ const go_to_page = async function(term, subject, course_number) {
 	// 	.evaluate(() => {
 	// 		return document.body.innerHTML;
 	// 	});
-	// if (/sorry, but your query had no matches/i.test(body)) {
-	// 	return [{
-	// 		course_code: `${subject} ${course_number}`,
-	// 		term,
-	// 	}];
-	// }
+	if (/sorry, but your query had no matches/i.test(body)) {
+		return [{
+			course_code: `${subject} ${course_number}`,
+			term,
+		}];
+	}
 	const $ = cheerio.load(body, { lowerCaseTags: true});
 	return scrape_data($, term, subject, course_number);
 }
@@ -90,7 +90,6 @@ const scrape_data = async function($, term, subject, course_number) {
 						.split(',')[1]
 						.trim();
 				}
-				console.log(instructor_firstname);
 				const time_and_days = $(row)
 					.find(':nth-child(6)')
 					.text()
