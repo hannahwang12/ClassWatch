@@ -38,11 +38,14 @@ class App extends Component {
 
   clickOutside = (e) => {
     this.forceUpdate();
-    this.setState({removeDialog: "none"});    
+    this.setState({removeDialog: "none"});   
   }
 
   clickRemove = (e) => {
     this.setState({removeDialog: "block"});
+    axios.get("/get").then(response => {
+      console.log(response);
+    });
     e.stopPropagation();
   }
 

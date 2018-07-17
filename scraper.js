@@ -3,13 +3,26 @@ const nightmare = Nightmare({ show: false });
 const cheerio = require('cheerio');
 
 const go_to_page = async function(term, subject, course_number) {
-	const body = await nightmare
-		.goto('http://www.adm.uwaterloo.ca/infocour/CIR/SA/under.html')
-		.select('form > select', term)
-		.select('form > p:nth-child(13) > select', subject)
-		.type('form > p:nth-child(14) > input', course_number)
-		.click('form input[type="submit"]:nth-child(1)')
+	console.log("2");
+	var body = await nightmare
+		.goto('http://www.adm.uwaterloo.ca/infocour/CIR/SA/under.html');
+	console.log("here 1");
+	body = await nightmare
+		.select('form > select', term);
+	console.log("here 2");
+	body = await nightmare
+		.select('form > p:nth-child(13) > select', subject);
+	console.log("here 3");
+	body = await nightmare
+		.type('form > p:nth-child(14) > input', course_number);
+	console.log("here 4");
+	body = await nightmare
+		.click('form input[type="submit"]:nth-child(1)');
+	console.log("here 5");
+	body = await nightmare
 		.wait('body > p:nth-child(4) > table')
+	console.log("here 6");
+	body = await nightmare
 		.evaluate(() => {
 			return document.body.innerHTML;
 		});
@@ -19,7 +32,9 @@ const go_to_page = async function(term, subject, course_number) {
 			term,
 		}];
 	}
+	console.log("2.5");
 	const $ = cheerio.load(body, { lowerCaseTags: true});
+	console.log("3");
 	return scrape_data($, term, subject, course_number);
 }
 
@@ -160,6 +175,7 @@ const scrape_data = async function($, term, subject, course_number) {
 			};
 		})
 		.toArray();
+	console.log("5");
 	return classes;
 }
 

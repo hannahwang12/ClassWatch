@@ -11,7 +11,6 @@ const firebase = require('firebase');
 const events = require('events');
 const nodemailer = require('nodemailer');
 
-const hostname = '127.0.0.1';
 const port = process.env.PORT || 8080;
 let results;
 let em = new events.EventEmitter();
@@ -69,12 +68,18 @@ server.post("/track", async (req, res) => {
 	for (var i = 0; i < len; ++i) {
 		tracked_courses.child(name).child(sections[i]).push(email);
 	}
+	res.send(200);
+});
+
+server.get("/get", async (req, res) => {
+	res.send("test");
 });
 
 server.post("/remove", async (req, res) => {
 	let remove_info = req.body.code.split('|');
 	let del_ref = firebase.app().database().ref().child(remove_info[1]).child(remove_info[2]).child(remove_info[0]);	
 	del_ref.remove();
+	res.send(200);
 });
 
 server.post('/scrape', async (req, res) => {
@@ -82,8 +87,10 @@ server.post('/scrape', async (req, res) => {
 	const course_code = req.body.course;
 	const subject = course_code.match(/[A-z]+/)[0].trim();
 	const course_number = course_code.match(/\d+./)[0].trim();
+	console.log("1");
 	results = await scraper.go_to_page(term, subject, course_number);
 	em.emit("complete", null); //Emit the event that the get request is listening for
+	res.send(200);
 });
 
 // When you get a request, call the Promise and send results when it's complete
