@@ -9,7 +9,7 @@ class RemoveComponent extends Component {
     return (
       <div className="overlay" style={{ display: this.props.display}}>
         <div className="removeDialog" style={{ display: this.props.display}} onClick={function(e) {e.stopPropagation();}}>
-          <p onClick={this.props.exit}>×</p>      
+          <p className="close" onClick={this.props.exit}>×</p>      
           <form action="/remove" target="dummyframe" method="post">
             <input name="code" type="text" placeholder="enter your removal code" autoComplete="off" ></input>
             <button className="button" type="submit">Submit</button>

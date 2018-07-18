@@ -8,7 +8,7 @@ class SubmitComponent extends Component {
   render() {
     return (
       <div>
-        <p onClick={this.props.exit}>×</p>
+        <p className="close" onClick={this.props.exit}>×</p>
         <input name="email" type="text" placeholder="enter your email" autoComplete="off"></input>
         <button onClick={this.props.onSubmit}>Submit</button>
       </div>

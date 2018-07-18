@@ -4,6 +4,12 @@ import SearchComponent from '../components/SearchComponent.js';
 import RemoveComponent from '../components/RemoveComponent.js';
 import ResultsContainer from '../containers/ResultsContainer.js';
 import '../assets/style/App.css';
+import HelpComponent from '../components/HelpComponent.js';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faQuestion } from '@fortawesome/free-solid-svg-icons';
+
+library.add(faQuestion);
 
 class App extends Component {
   constructor(props) {
@@ -12,6 +18,7 @@ class App extends Component {
       searching: false,
       searched: false,
       clickOut: true,
+      helpModal: "none",
       removeDialog: "none",
     }
     this.results = null;
@@ -34,11 +41,20 @@ class App extends Component {
       this.setState({searching: false});
       this.setState({searched: true});
     });
-	}
+  }
+
+  clickHelp = (e) => {
+    this.setState({helpModal: "block"});
+    e.stopPropagation();
+  }
+
+  exitHelp = (e) => {
+    this.setState({helpModal: "none"});
+  }
 
   clickOutside = (e) => {
     this.forceUpdate();
-    this.setState({removeDialog: "none"});   
+    this.setState({removeDialog: "none", helpModal: "none"});   
   }
 
   clickRemove = (e) => {
@@ -59,12 +75,17 @@ class App extends Component {
         </div>
         <div className="backgroundImg" id="fall">
         </div>
+        <div onClick={this.clickHelp}><FontAwesomeIcon className="questionMark" icon="question"/></div>
+        
         {this.state.searched ? null : 
           <div className="search">
             <div className="title">ClassWatch.</div>
             <SearchComponent searching={this.state.searching} handleSubmit={this.handleSubmit} changeSeason={this.changeSeason}/>
             <button className="removeButton" onClick={this.clickRemove}>Stop watching a course</button>
           </div>}
+        <div className="remove">
+          <HelpComponent display={this.state.helpModal} exit={this.exitHelp}/>
+        </div>
         <div className="remove">
           <RemoveComponent display={this.state.removeDialog} exit={this.exitRemove}/>
         </div>       
