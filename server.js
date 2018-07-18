@@ -11,11 +11,10 @@ const firebase = require('firebase');
 const events = require('events');
 const nodemailer = require('nodemailer');
 
+const url = "http://classwatch.ca-central-1.elasticbeanstalk.com";
+
 const port = process.env.PORT || 8080;
 let em = new events.EventEmitter();
-
-server.use(bodyParser.urlencoded({ extended: true })); 
-server.use(cors({origin: 'http://localhost:3000'}));
 
 // ------------------------
 // FIREBASE
@@ -33,7 +32,7 @@ firebase.initializeApp({
 });
 
 // Reference to database, this is automatically the root
-const tracked_courses = firebase.app().database().ref()//.child("tracked_courses");
+const tracked_courses = firebase.app().database().ref().child("tracked_courses");
 const verify_links = firebase.app().database().ref().child("verify_links");
 
 // uw.classwatch.notif@gmail.com
@@ -51,22 +50,33 @@ const transporter = nodemailer.createTransport({
 });
 
 // Heroku deployment
-server.use(express.static(path.join(__dirname, 'client/build')));
-server.use(favicon(path.join(__dirname, 'client/public/favicon.ico')));
+server.use(bodyParser.urlencoded({ extended: true })); 
+server.use(cors({origin: 'http://localhost:3000'}));
 server.listen(port);
 
 server.post("/track", async (req, res) => {
-	/*
 	const sections = req.body.sections;
 	const len = sections.length;
 	const email = req.body.email;
 	const name = req.body.course_name;
+	const min = 10000000000000;
+	const max = 99999999999999;
+	const num = Math.floor(Math.random() * (max - min + 1)) + min;
+	// Gonna have a problem if two of the same keys are ever generated
+
 
 	for (var i = 0; i < len; ++i) {
-		verify_links.child(name).child(sections[i]).push(email);
+		verify_links.child(num).child(name).child(sections[i]).push(email);
+	// tracked_courses.child("custom_key").setValue("custom value")
 	}
-	*/
-	
+
+	let sectionStr = "";
+	for (var i = 0; i < len; ++i) {
+		sectionStr += (sections[i] + ", ");
+	}
+
+	send_verification(email, name, sectionStr.slice(0, -2), num);
+	/*
 	const sections = req.body.sections;
 	const len = sections.length;
 	const email = req.body.email;
@@ -75,7 +85,7 @@ server.post("/track", async (req, res) => {
 	for (var i = 0; i < len; ++i) {
 		tracked_courses.child(name).child(sections[i]).push(email);
 	}
-	
+	*/
 	res.sendStatus(200);
 });
 
@@ -93,6 +103,7 @@ server.post('/scrape', async (req, res) => {
 	const course_number = course_code.match(/\d+./) ? course_code.match(/\d+./)[0].trim() : null;
 	const results = await scraper.go_to_page(term, subject, course_number);
 	em.emit("complete", results); //Emit the event that the get request is listening for
+	// this event is global, causing the search conflicts
 	res.sendStatus(200);
 });
 
@@ -106,6 +117,19 @@ server.get('/data', async (req, res) => {
 	em.once("complete", function( results ) {res.send(results)});
 });
 
+server.get('/verify', async (req, res) => {
+	verify_links.once('value', async function(data) {
+		waiting_links = Object.keys(data.val());
+
+		if (contains_elem(req.query.hash, waiting_links) != -1) {
+			moveFbRecord(verify_links.child(req.query.hash), tracked_courses);
+		}
+	})
+});
+
+server.use(express.static(path.join(__dirname, 'client/build')));
+server.use(favicon(path.join(__dirname, 'client/public/favicon.ico')));
+
 // Given an eventEmitter and an eventType, this function returns a promise
 // which resolves when the event happens
 /*
@@ -116,13 +140,23 @@ function waitForEvent( eventEmitter, eventType ) {
 };
 */
 
-function send_verification( email, sections, link ) {
+function moveFbRecord(oldRef, newRef) {    
+     oldRef.once('value', function(snap)  {
+          newRef.update( snap.val(), function(error) {
+               if( !error ) {  oldRef.remove(); }
+               else if( typeof(console) !== 'undefined' && console.error ) {  console.error(error); }
+          });
+     });
+}
+
+function send_verification( email, name, sections, num ) {
+	const link = "http://localhost:8080/verify?hash=" + num;
 	const mailOptions = {
 								from: 'uw.classwatch.notif@gmail.com',
 								to: email,
 								subject: "Verify your choice!",
-								html: `<p style="font-size: 16px">You have requested to watch the following sections:\n` + sections + `</p>
-									  <p style="font-size: 15px">Please click on the link to verify your email: <a href=` + link + `>Verify</a></p>
+								html: `<p style="font-size: 16px">You have requested to watch the following sections of ` + name + `: ` + sections + `</p>
+									  <p style="font-size: 15px">Please <a href=` + link + `>click on the link</a> to verify your email.</p>
 									  <p><a href='http://classwatch.ca-central-1.elasticbeanstalk.com/'>ClassWatch</a> works by scraping UWaterloo's publicly available enrolment numbers, which are updated every half hour between 8:00am and 8:00pm. This application is entirely student-run and continuously being updated so please send us your
 									  feedback by replying to this email.</p>`,
 							};
