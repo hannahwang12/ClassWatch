@@ -12,7 +12,6 @@ const events = require('events');
 const nodemailer = require('nodemailer');
 
 const port = process.env.PORT || 8080;
-let results;
 let em = new events.EventEmitter();
 
 server.use(bodyParser.urlencoded({ extended: true })); 
@@ -79,25 +78,30 @@ server.post('/scrape', async (req, res) => {
 	const course_code = req.body.course;
 	const subject = course_code.match(/[A-z]+/) ? course_code.match(/[A-z]+/)[0].trim() : null;
 	const course_number = course_code.match(/\d+./) ? course_code.match(/\d+./)[0].trim() : null;
-	results = await scraper.go_to_page(term, subject, course_number);
-	em.emit("complete", null); //Emit the event that the get request is listening for
+	const results = await scraper.go_to_page(term, subject, course_number);
+	em.emit("complete", results); //Emit the event that the get request is listening for
 	res.sendStatus(200);
 });
 
 // When you get a request, call the Promise and send results when it's complete
 server.get('/data', async (req, res) => {
-	waitForEvent ( em, "complete" ).then( function() {
+	/*
+	waitForEvent ( em, "complete" ).then( function( results ) {
 		res.send(results);
 	});
+	*/
+	em.once("complete", function( results ) {res.send(results)});
 });
 
 // Given an eventEmitter and an eventType, this function returns a promise
 // which resolves when the event happens
+/*
 function waitForEvent( eventEmitter, eventType ) {
 	return new Promise ( function( resolve ) {
-		eventEmitter.once( eventType, resolve )
-	})
+		eventEmitter.once( eventType, resolve(results) )
+	});
 };
+*/
 
 function contains_elem( elem, array ) {
 	let len = array.length;
@@ -195,17 +199,18 @@ function checkCourses() {
 // now is set to the current date in milliseconds since some date
 function customSchedule() {
 	var now = Date.now();
+	var hours = new Date().getHours();
 
 	//  1,800,000 is 30 minutes in milliseconds, so if an interval of 30 minutes has passed since that date, we trigger
-	if (now % 1800000 <= 60000) {
+	if (hours >= 8 && hours <= 20 && now % 1800000 <= 60000) {
 		checkCourses();
 	}
 
 	// Fire the next time in 1min
-	setTimeout(customSchedule, 1000 * 60);
+	// setTimeout(customSchedule, 1000 * 60);
 }
 
-customSchedule();
+setInterval(customSchedule, 1000 * 60);
 
 
 /*
