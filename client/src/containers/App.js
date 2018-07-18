@@ -75,17 +75,19 @@ class App extends Component {
         </div>
         <div className="backgroundImg" id="fall">
         </div>
-        <div onClick={this.clickHelp}><FontAwesomeIcon className="questionMark" icon="question"/></div>
+        
         
         {this.state.searched ? null : 
           <div className="search">
             <div className="title">ClassWatch.</div>
             <SearchComponent searching={this.state.searching} handleSubmit={this.handleSubmit} changeSeason={this.changeSeason}/>
             <button className="removeButton" onClick={this.clickRemove}>Stop watching a course</button>
-          </div>}
+            <div onClick={this.clickHelp}><FontAwesomeIcon className="questionMark" icon="question"/></div>
+          </div>
+        }
         <div className="remove">
-          <HelpComponent display={this.state.helpModal} exit={this.exitHelp}/>
-        </div>
+              <HelpComponent display={this.state.helpModal} exit={this.exitHelp}/>
+            </div>
         <div className="remove">
           <RemoveComponent display={this.state.removeDialog} exit={this.exitRemove}/>
         </div>       
