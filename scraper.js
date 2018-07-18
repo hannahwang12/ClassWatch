@@ -176,7 +176,6 @@ const scrape_data = async function($, term, subject, course_number) {
 			};
 		})
 		.toArray();
-	console.log("5");
 	return classes;
 }
 
