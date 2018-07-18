@@ -103,6 +103,12 @@ function waitForEvent( eventEmitter, eventType ) {
 };
 */
 
+/*
+function send_verification( email, sections ) {
+
+}
+*/
+
 function contains_elem( elem, array ) {
 	let len = array.length;
 	for (var i = 0 ; i < len ; ++i) {
@@ -118,6 +124,7 @@ function checkCourses() {
 	var course_info = new Array();
 	tracked_courses.once('value', async function(data) {
 		course_names = Object.keys(data.val());
+		// returns an array of all keys
 		data.forEach(function(elem) {
 			course_info.push(elem.val());
 		});
