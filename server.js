@@ -53,6 +53,7 @@ const transporter = nodemailer.createTransport({
 // Heroku deployment
 server.use(bodyParser.urlencoded({ extended: true })); 
 server.use(cors({origin: 'http://localhost:3000'}));
+server.use(favicon(path.join(__dirname, 'client/public/favicon.ico')));
 server.listen(port);
 
 server.post("/track", async (req, res) => {
@@ -97,6 +98,7 @@ server.post("/remove", async (req, res) => {
 	res.sendStatus(200);
 });
 
+/*
 server.post('/scrape', async (req, res) => {
 	const term = req.body.term;
 	const course_code = req.body.course;
@@ -107,15 +109,22 @@ server.post('/scrape', async (req, res) => {
 	// this event is global, causing the search conflicts
 	res.sendStatus(200);
 });
+*/
 
 // When you get a request, call the Promise and send results when it's complete
 server.get('/data', async (req, res) => {
+	const term = req.query.term;
+	const course_code = req.query.search;
+	const subject = course_code.match(/[A-z]+/) ? course_code.match(/[A-z]+/)[0].trim() : null;
+	const course_number = course_code.match(/\d+./) ? course_code.match(/\d+./)[0].trim() : null;
+	const results = await scraper.go_to_page(term, subject, course_number);
+	res.send(results);
 	/*
 	waitForEvent ( em, "complete" ).then( function( results ) {
 		res.send(results);
 	});
 	*/
-	em.once("complete", function( results ) {res.send(results)});
+	//em.once("complete", function( results ) {res.send(results)});
 });
 
 server.get('/verify', async (req, res) => {
@@ -124,12 +133,14 @@ server.get('/verify', async (req, res) => {
 
 		if (contains_elem(req.query.hash, waiting_links) != -1) {
 			moveFbRecord(verify_links.child(req.query.hash), tracked_courses);
+			res.sendFile(path.join(__dirname, 'client/extra/verified.html'));
+		} else {
+			res.sendFile(path.join(__dirname, 'client/extra/unverified.html'));
 		}
 	})
 });
 
 server.use(express.static(path.join(__dirname, 'client/build')));
-server.use(favicon(path.join(__dirname, 'client/public/favicon.ico')));
 
 // Given an eventEmitter and an eventType, this function returns a promise
 // which resolves when the event happens
@@ -151,7 +162,7 @@ function moveFbRecord(oldRef, newRef) {
 }
 
 function send_verification( email, name, sections, num ) {
-	const link = "http://localhost:8080/verify?hash=" + num;
+	const link = url + "/verify?hash=" + num;
 	const mailOptions = {
 								from: 'uw.classwatch.notif@gmail.com',
 								to: email,
