@@ -1,0 +1,3 @@
+To deploy on ElasticBeanstalk, create a classwatch.zip file of this directory, remove node_modules and upload to EB. Ensure that .npmrc file is in this .zip to upgrade to the latest node.js platform.
+
+To update a deployment, run "npm run build" inside of client and replace the build directory inside of uwclasswatch.zip with the new one. Ensure that the static HTML assets (as of writing goose.jpg) for the email verification pages are also in build. Also replace the src directory, as well as scraper.js, server.js, package.json and any other files that may have been changed. Then upload uwclasswatch.zip on the EB dashboard.
