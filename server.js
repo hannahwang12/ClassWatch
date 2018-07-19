@@ -52,6 +52,7 @@ const transporter = nodemailer.createTransport({
 // Heroku deployment
 server.use(bodyParser.urlencoded({ extended: true })); 
 server.use(cors({origin: 'http://localhost:3000'}));
+server.use(favicon(path.join(__dirname, 'client/public/favicon.ico')));
 server.listen(port);
 
 server.post("/track", async (req, res) => {
@@ -131,12 +132,18 @@ server.get('/verify', async (req, res) => {
 
 		if (contains_elem(req.query.hash, waiting_links) != -1) {
 			moveFbRecord(verify_links.child(req.query.hash), tracked_courses);
+			res.sendFile(path.join(__dirname, 'client/extra/verified.html');
+		} else {
+			res.sendFile(path.join(__dirname, 'client/extra/unverified.html'));
 		}
 	})
 });
 
+server.get('/test', async (req, res) => {
+	res.sendFile(path.join(__dirname + '/verified.html'));
+});
+
 server.use(express.static(path.join(__dirname, 'client/build')));
-server.use(favicon(path.join(__dirname, 'client/public/favicon.ico')));
 
 // Given an eventEmitter and an eventType, this function returns a promise
 // which resolves when the event happens
