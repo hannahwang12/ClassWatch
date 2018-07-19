@@ -10,6 +10,7 @@ const scraper = require('./scraper.js');
 const firebase = require('firebase');
 const events = require('events');
 const nodemailer = require('nodemailer');
+const moment = require('moment');
 
 const url = "http://classwatch.ca-central-1.elasticbeanstalk.com";
 
@@ -262,11 +263,11 @@ function checkCourses() {
 
 // now is set to the current date in milliseconds since some date
 function customSchedule() {
-	var now = Date.now();
-	var hours = new Date().getHours();
+	let hours = moment().hours();
+	let minutes = moment().minutes();
 
 	//  1,800,000 is 30 minutes in milliseconds, so if an interval of 30 minutes has passed since that date, we trigger
-	if (hours >= 8 && hours <= 20 && now % 1800000 <= 60000) {
+	if (hours >= 8 && hours <= 20 && minutes % 30 <= 1) {
 		checkCourses();
 	}
 
