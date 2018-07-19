@@ -132,15 +132,11 @@ server.get('/verify', async (req, res) => {
 
 		if (contains_elem(req.query.hash, waiting_links) != -1) {
 			moveFbRecord(verify_links.child(req.query.hash), tracked_courses);
-			res.sendFile(path.join(__dirname, 'client/extra/verified.html');
+			res.sendFile(path.join(__dirname, 'client/extra/verified.html'));
 		} else {
 			res.sendFile(path.join(__dirname, 'client/extra/unverified.html'));
 		}
 	})
-});
-
-server.get('/test', async (req, res) => {
-	res.sendFile(path.join(__dirname + '/verified.html'));
 });
 
 server.use(express.static(path.join(__dirname, 'client/build')));
