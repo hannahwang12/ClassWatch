@@ -27,11 +27,13 @@ class SearchComponent extends Component {
 
   handleKeyPress = (e) => {
     if (e.key === 'Enter') {
-      this.submitForm();
+      this.props.searchQuery(this.state.term, this.state.value);
     }
   }
 
   submitForm = () => {
+    this.props.searchQuery(this.state.term, this.state.value);
+    /*
     var form = document.getElementById("searchForm");
     var button = form.ownerDocument.createElement('input');
     //make sure it can't be seen/disrupts layout (even momentarily)
@@ -42,6 +44,7 @@ class SearchComponent extends Component {
     form.appendChild(button).click();
     //if it was prevented, make sure we don't get a build up of buttons
     form.removeChild(button);
+    */
   }
 
   termChange = (term) => {
@@ -83,9 +86,9 @@ class SearchComponent extends Component {
     };
 
     return (
-      <div className="searchBar">
-        <iframe width="0" height="0" border="0" name="dummyframe" id="dummyframe" display="none" frameBorder="0"></iframe>
-        <form id="searchForm" action="/scrape" method="post" onSubmit={this.setLoading} onKeyPress={this.handleKeyPress} target="dummyframe" autoComplete="off">
+      <div className="searchBar" onKeyPress={this.handleKeyPress}>
+          {/*<iframe width="0" height="0" border="0" name="dummyframe" id="dummyframe" display="none" frameBorder="0"></iframe>
+          <form id="searchForm" action="/scrape" method="post" onSubmit={this.setLoading} onKeyPress={this.handleKeyPress} target="dummyframe" autoComplete="off">*/}
           {/*<select name="term" onChange={this.props.changeSeason}>
             <option value="1179">Fall 2017</option>
             <option value="1181">Winter 2018</option>
@@ -104,10 +107,9 @@ class SearchComponent extends Component {
                             {value: '1181', label: 'Winter 2018'}, 
                             {value: '1185', label: 'Spring 2018'}, 
                             {value: '1189', label: 'Fall 2018'}]}/>
-          <input name="course" type="text" className="search" placeholder="enter a course code" value={this.state.value} onChange={this.handleChange}/>
+          <input name="course" type="text" className="search" placeholder="enter a course code" value={this.state.value} onChange={this.handleChange} autoComplete="off"/>
           {this.props.searching ? <div className="loader"></div> : <FontAwesomeIcon onClick={this.submitForm} className="searchIcon" icon="search" size="2x"/>}
-        </form>
-        
+        {/*</form>*/}
       </div>
     );
   }

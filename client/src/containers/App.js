@@ -22,6 +22,19 @@ class App extends Component {
       removeDialog: "none",
     }
     this.results = null;
+    this.term = "";
+    this.search = "";
+  }
+
+  searchQuery = ( term, search ) => {
+    this.term = term;
+    this.search = search;
+    this.setState({searching: true});
+    axios.get("/data?term=" + this.term + "&search=" + this.search).then(response => {
+      this.results = response.data;
+      this.setState({searching: false});
+      this.setState({searched: true});
+    });
   }
 
   changeSeason = (e) => {
@@ -80,7 +93,7 @@ class App extends Component {
         {this.state.searched ? null : 
           <div className="search">
             <div className="title">ClassWatch.</div>
-            <SearchComponent searching={this.state.searching} handleSubmit={this.handleSubmit} changeSeason={this.changeSeason}/>
+            <SearchComponent searching={this.state.searching} handleSubmit={this.handleSubmit} changeSeason={this.changeSeason} searchQuery={this.searchQuery}/>
             <button className="removeButton" onClick={this.clickRemove}>Stop watching a course</button>
             <div onClick={this.clickHelp}><FontAwesomeIcon className="questionMark" icon="question"/></div>
           </div>

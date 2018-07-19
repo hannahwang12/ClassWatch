@@ -96,6 +96,7 @@ server.post("/remove", async (req, res) => {
 	res.sendStatus(200);
 });
 
+/*
 server.post('/scrape', async (req, res) => {
 	const term = req.body.term;
 	const course_code = req.body.course;
@@ -106,15 +107,22 @@ server.post('/scrape', async (req, res) => {
 	// this event is global, causing the search conflicts
 	res.sendStatus(200);
 });
+*/
 
 // When you get a request, call the Promise and send results when it's complete
 server.get('/data', async (req, res) => {
+	const term = req.query.term;
+	const course_code = req.query.search;
+	const subject = course_code.match(/[A-z]+/) ? course_code.match(/[A-z]+/)[0].trim() : null;
+	const course_number = course_code.match(/\d+./) ? course_code.match(/\d+./)[0].trim() : null;
+	const results = await scraper.go_to_page(term, subject, course_number);
+	res.send(results);
 	/*
 	waitForEvent ( em, "complete" ).then( function( results ) {
 		res.send(results);
 	});
 	*/
-	em.once("complete", function( results ) {res.send(results)});
+	//em.once("complete", function( results ) {res.send(results)});
 });
 
 server.get('/verify', async (req, res) => {
