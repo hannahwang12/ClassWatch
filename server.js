@@ -161,7 +161,7 @@ function moveFbRecord(oldRef, newRef) {
 }
 
 function send_verification( email, name, sections, num ) {
-	const link = "http://localhost:8080/verify?hash=" + num;
+	const link = url + "/verify?hash=" + num;
 	const mailOptions = {
 								from: 'uw.classwatch.notif@gmail.com',
 								to: email,
