@@ -12,8 +12,7 @@ const events = require('events');
 const nodemailer = require('nodemailer');
 const moment = require('moment-timezone');
 
-//const url = "http://classwatch.ca-central-1.elasticbeanstalk.com";
-const url = 'http://localhost:3000'
+const url = "http://classwatch.ca-central-1.elasticbeanstalk.com";
 
 const port = process.env.PORT || 8080;
 let em = new events.EventEmitter();
