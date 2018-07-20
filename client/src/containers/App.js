@@ -57,7 +57,7 @@ class App extends Component {
   }
 
   clickHelp = (e) => {
-    this.setState({helpModal: "block"});
+    this.setState({helpModal: "inline-block"});
     e.stopPropagation();
   }
 

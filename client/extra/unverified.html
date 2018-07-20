@@ -3,54 +3,84 @@
 <head>
 	<title>Oops!</title>
 	<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">
 	<style>
 		* {
 			margin: 0;
 			border: 0;
-			padding: 0;
 			outline: 0;
 		}
 
 		body {
-			width: 100%;
-			height: 100%;
+			height: 100vh;
 			overflow: hidden;
 			background-color: #FFF;
-			line-height: 1.5;
 			font-family: Montserrat;
-		}
-
-		.splash {
-			z-index: 0;
-			height: 100%;
-			width: 100%;
+			background-image: url('./goose2.jpg');
 			background-attachment: fixed;
 			background-position: center;
 			background-repeat: no-repeat;
 			background-size: cover;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+
+		.button {
+			background: none;
+			border: 1px solid rgba(255, 255, 255, 0.8);
+			color: rgba(255, 255, 255, 0.8);
+			width: 2em;
+			height: 2em;
+			text-decoration: none;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			font-size: 24px;
+			border-radius: 0.5em;
+			padding: 0;
+			position: fixed;
+			top: 1em;
+			left: 1em;
+		}
+
+		.button:hover {
+			border: 1px solid white;
+			color: white;
+			cursor: pointer;
 		}
 
 		.text {
-		  position: absolute;
-		  top: 50%;
-		  left: 50%;
-		  width: 45%;
-		  text-align: center;
-		  padding: 20px;
-		  font-size: 24px;
-		  transform: translate(-50%, -50%);
-		  color: white;
-		  background-color: rgba(0, 0, 0, 0.5);
-		  border-radius: 0.5em;
+			text-align: left;
+			margin: 2em;
+			padding: 2em;
+			color: white;
+			background-color: rgba(0, 0, 0, 0.5);
+			border-radius: 0.5em;
+		}
+
+		h1 {
+			margin-bottom: 0.3em;
+		}
+
+		a {
+			color: rgba(255, 255, 255, 0.8);
+			text-decoration: none;
+		}
+
+		a:hover {
+			color: white;
 		}
 	</style>
 </head>
 
 <body>
-	<div class="screen">
-		<img class="splash" src="./goose.jpg"/>
-
-		<h1 class="text">This doesn't seem to be an email in our database</h1>
+	<a href="http://classwatch.ca-central-1.elasticbeanstalk.com" class="button"><i class="fas fa-tree"></i></a>
+	<div class="text">
+		<h1>this doesn't seem to be an email in our database</h1>
+		<p>
+			<a href="http://classwatch.ca-central-1.elasticbeanstalk.com"><< Back to ClassWatch</a>
+		</p>
 	</div>
 </body>
 

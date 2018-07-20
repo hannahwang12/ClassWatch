@@ -10,9 +10,10 @@ const scraper = require('./scraper.js');
 const firebase = require('firebase');
 const events = require('events');
 const nodemailer = require('nodemailer');
-const moment = require('moment');
+const moment = require('moment-timezone');
 
-const url = "http://classwatch.ca-central-1.elasticbeanstalk.com";
+//const url = "http://classwatch.ca-central-1.elasticbeanstalk.com";
+const url = 'http://localhost:3000'
 
 const port = process.env.PORT || 8080;
 let em = new events.EventEmitter();
@@ -272,6 +273,7 @@ function checkCourses() {
 	});
 }
 
+moment.tz.setDefault('America/Toronto');
 // now is set to the current date in milliseconds since some date
 function customSchedule() {
 	let hours = moment().hours();
