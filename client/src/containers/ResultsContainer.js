@@ -107,7 +107,7 @@ class ResultsContainer extends Component {
                   el.style.setProperty('padding', '1em', 'important');
                 }
               }}>
-            <SearchComponent searching={this.props.searching} searched={this.props.searched} handleSubmit={this.props.handleSubmit}/>
+            <SearchComponent searching={this.props.searching} searched={this.props.searched} handleSubmit={this.props.handleSubmit} changeSeason={this.props.changeSeason} searchQuery={this.props.searchQuery}/>
           </div>
           <div className="results">
             <h1>{results[0].course_code}</h1>
