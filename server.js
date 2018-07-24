@@ -169,7 +169,7 @@ function send_verification( email, name, sections, num ) {
 								subject: "Verify your choice!",
 								html: `<p style="font-size: 16px">You have requested to watch the following sections of ` + name + `: ` + sections + `</p>
 									  <p style="font-size: 15px">Please <a href=` + link + `>click on the link</a> to verify your email.</p>
-									  <p><a href='http://classwatch.ca-central-1.elasticbeanstalk.com/'>ClassWatch</a> works by scraping UWaterloo's publicly available enrolment numbers, which are updated every half hour between 8:00am and 8:00pm. This application is entirely student-run and continuously being updated so please send us your
+									  <p><a href='http://uwclasswatch.com/'>ClassWatch</a> works by scraping UWaterloo's publicly available enrolment numbers, which are updated every half hour between 8:00am and 8:00pm. This application is entirely student-run and continuously being updated so please send us your
 									  feedback by replying to this email.</p>`,
 							};
 	transporter.sendMail(mailOptions, function(error, info){
@@ -233,9 +233,9 @@ function checkCourses() {
 								to: emails[n],
 								subject: "There's space for you in " + course_names[i] + ": " + sections_to_check[contains] + "!",
 								html: `<p style="font-size: 16px">The enrolment capacity for this class is currently ` + temp_results[j].enrol_total + `/` + temp_results[j].enrol_cap + `.
-									  \nTo stop receiving notifications about this class, enter your removal code at http://classwatch.ca-central-1.elasticbeanstalk.com/.</p>
+									  \nTo stop receiving notifications about this class, enter your removal code at <a href='http://www.uwclasswatch.com/'>UWclasswatch</a>.</p>
 									  <p style="font-size: 15px">Your code for this class is: ` + remove_codes[n] + `|` + course_names[i] + `|` + sections_to_check[contains] + `</p>
-									  <p><a href='http://classwatch.ca-central-1.elasticbeanstalk.com/'>ClassWatch</a> works by scraping UWaterloo's publicly available enrolment numbers, which are updated every half hour between 8:00am and 8:00pm. This application is entirely student-run and continuously being updated so please send us your
+									  <p><a href='http://uwclasswatch.com/'>UWClassWatch</a> works by scraping UWaterloo's publicly available enrolment numbers, which are updated every half hour between 8:00am and 8:00pm. This application is entirely student-run and continuously being updated so please send us your
 									  feedback by replying to this email.</p>`,
 							};
 
@@ -253,9 +253,9 @@ function checkCourses() {
 								to: emails[n],
 								subject: "There's space for you in " + course_names[i] + ": " + sections_to_check[contains],
 								html: `<p style="font-size: 16px">The enrolment capacity for this class is currently ` +  temp_results[j].reserve_enrol_total + `/` + temp_results[j].reserve_enrol_cap + `.
-									  \nTo stop receiving notifications about this class, enter your removal code at http://classwatch.ca-central-1.elasticbeanstalk.com/.</p>
+									  \nTo stop receiving notifications about this class, enter your removal code at <a href='http://www.uwclasswatch.com/'>UWclasswatch</a>.</p>
 									  <p style="font-size: 15px">Your code for this class is: ` + remove_codes[n] + `|` + course_names[i] + `|` + sections_to_check[contains] + `</p>
-									  <p><a href='http://classwatch.ca-central-1.elasticbeanstalk.com/'>ClassWatch</a> works by scraping UWaterloo's publicly available enrolment numbers, which are updated every half hour between 8:00am and 8:00pm. This application is entirely student-run and continuously being updated so please send us your
+									  <p><a href='http://uwclasswatch.com/'>UWClassWatch</a> works by scraping UWaterloo's publicly available enrolment numbers, which are updated every half hour between 8:00am and 8:00pm. This application is entirely student-run and continuously being updated so please send us your
 									  feedback by replying to this email.</p>`,
 							};
 
