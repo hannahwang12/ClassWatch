@@ -13,7 +13,7 @@ class RowComponent extends Component {
         <tr className="reserveRow">
           <td>
             <label className="container">
-                <input className="checkbox" type="checkbox" name="sections[]" value={rowData.section} onClick={this.props.onCheck}/>
+                <input className="checkbox" type="checkbox" name="sections[]" value={rowData.section}/>
                 <span className="checkmark"></span>
             </label>
           </td>
@@ -26,12 +26,12 @@ class RowComponent extends Component {
         </tr>
       );
     } else if (rowData.reserve) {
-      console.log('reserve');
+      //console.log('reserve');
       return (
         <tr className="reserveRow">
           <td>
             <label className="container">
-                <input className="checkbox" type="checkbox" name="sections[]" value={rowData.section} onClick={this.props.onCheck}/>
+                <input className="checkbox" type="checkbox" name="sections[]" value={rowData.section}/>
                 <span className="checkmark"></span>
             </label>
           </td>
@@ -56,7 +56,7 @@ class RowComponent extends Component {
         <tr>
           <td>
             <label className="container">
-                <input className="checkbox" type="checkbox" name="sections[]" value={rowData.section} onClick={this.props.onCheck}/>
+                <input className="checkbox" type="checkbox" name="sections[]" value={rowData.section}/>
                 <span className="checkmark"></span>
             </label>
           </td>

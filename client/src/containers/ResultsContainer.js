@@ -8,7 +8,6 @@ class ResultsContainer extends Component {
     super(props);
     this.state = {
       submitDialog: "none",
-      checkedCourses: new Array(),
     }
   }
 
@@ -34,10 +33,6 @@ class ResultsContainer extends Component {
     e.stopPropagation();
   }
 
-  onSubmit = (e) => {
-    this.setState({ submitDialog: "none" });
-  }
-
   get_season(term) {
     const season_num = term.charAt(3);
     if (season_num === '1') {
@@ -47,6 +42,12 @@ class ResultsContainer extends Component {
     } else {
       return 'Fall';
     }
+  }
+
+  searchFunction = ( term, search ) => {
+    this.props.searchQuery(term, search);
+    var clist = document.getElementsByTagName("input");
+    for (var i = 0; i < clist.length; ++i) { clist[i].checked = false; }
   }
 
   render() {
@@ -64,7 +65,7 @@ class ResultsContainer extends Component {
                 el.style.setProperty('padding', '1em', 'important');
               }
             }}>
-            <SearchComponent searching={this.props.searching} searched={this.props.searched} handleSubmit={this.props.handleSubmit} changeSeason={this.props.changeSeason} searchQuery={this.props.searchQuery}/>
+            <SearchComponent searching={this.props.searching} searched={this.props.searched} handleSubmit={this.props.handleSubmit} changeSeason={this.props.changeSeason} searchQuery={this.searchFunction}/>
           </div>
           <div className="results">
             <h1>{results[0].course_code}</h1>
@@ -83,7 +84,7 @@ class ResultsContainer extends Component {
                   </tr>
                 </thead>
                 <tbody>
-                    {results.map((elem) => <RowComponent row={elem} onCheck={this.onCheck}/>)}
+                    {results.map((elem) => <RowComponent row={elem}/>)}
                 </tbody>
               </table>
               <button className="button" onClick={ this.watchClasses }>Watch</button>
@@ -91,7 +92,7 @@ class ResultsContainer extends Component {
               <input type="hidden" name="course_name" display="none" value={course_name}></input>
               <div className="overlay" style={{ display: this.state.submitDialog }}>
                 <div className="submitDialog" style={{ display: this.state.submitDialog }} onClick={this.clickDialog}>
-                  <SubmitComponent exit={this.exitSubmit} onSubmit={this.onSubmit}/>
+                  <SubmitComponent exit={this.exitSubmit}/>
                 </div>
               </div>
             </form>
@@ -107,7 +108,7 @@ class ResultsContainer extends Component {
                   el.style.setProperty('padding', '1em', 'important');
                 }
               }}>
-            <SearchComponent searching={this.props.searching} searched={this.props.searched} handleSubmit={this.props.handleSubmit} changeSeason={this.props.changeSeason} searchQuery={this.props.searchQuery}/>
+            <SearchComponent searching={this.props.searching} searched={this.props.searched} handleSubmit={this.props.handleSubmit} changeSeason={this.props.changeSeason} searchQuery={this.searchFunction}/>
           </div>
           <div className="results">
             <h1>{results[0].course_code}</h1>

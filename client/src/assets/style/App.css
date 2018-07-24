@@ -416,3 +416,14 @@ button {
   border-color: white;
   cursor: pointer;
 }
+
+.verification-text {
+  font-size: 30px;
+  display: inline-block;
+  width: 100%;
+  color: white;
+  background: transparent;
+  font-family: 'Montserrat';
+  border: none;
+  text-align: center;
+}
