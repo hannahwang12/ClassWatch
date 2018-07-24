@@ -12,7 +12,7 @@ const events = require('events');
 const nodemailer = require('nodemailer');
 const moment = require('moment-timezone');
 
-const url = "http://classwatch.ca-central-1.elasticbeanstalk.com";
+const url = "http://www.uwclasswatch.com";
 
 const port = process.env.PORT || 8080;
 let em = new events.EventEmitter();
@@ -233,7 +233,7 @@ function checkCourses() {
 								to: emails[n],
 								subject: "There's space for you in " + course_names[i] + ": " + sections_to_check[contains] + "!",
 								html: `<p style="font-size: 16px">The enrolment capacity for this class is currently ` + temp_results[j].enrol_total + `/` + temp_results[j].enrol_cap + `.
-									  \nTo stop receiving notifications about this class, enter your removal code at <a href='http://www.uwclasswatch.com/'>UWclasswatch</a>.</p>
+									  \nTo stop receiving notifications about this class, enter your removal code at <a href='http://www.uwclasswatch.com/'>UWClasswatch</a>.</p>
 									  <p style="font-size: 15px">Your code for this class is: ` + remove_codes[n] + `|` + course_names[i] + `|` + sections_to_check[contains] + `</p>
 									  <p><a href='http://uwclasswatch.com/'>UWClassWatch</a> works by scraping UWaterloo's publicly available enrolment numbers, which are updated every half hour between 8:00am and 8:00pm. This application is entirely student-run and continuously being updated so please send us your
 									  feedback by replying to this email.</p>`,
@@ -253,7 +253,7 @@ function checkCourses() {
 								to: emails[n],
 								subject: "There's space for you in " + course_names[i] + ": " + sections_to_check[contains],
 								html: `<p style="font-size: 16px">The enrolment capacity for this class is currently ` +  temp_results[j].reserve_enrol_total + `/` + temp_results[j].reserve_enrol_cap + `.
-									  \nTo stop receiving notifications about this class, enter your removal code at <a href='http://www.uwclasswatch.com/'>UWclasswatch</a>.</p>
+									  \nTo stop receiving notifications about this class, enter your removal code at <a href='http://www.uwclasswatch.com/'>UWClasswatch</a>.</p>
 									  <p style="font-size: 15px">Your code for this class is: ` + remove_codes[n] + `|` + course_names[i] + `|` + sections_to_check[contains] + `</p>
 									  <p><a href='http://uwclasswatch.com/'>UWClassWatch</a> works by scraping UWaterloo's publicly available enrolment numbers, which are updated every half hour between 8:00am and 8:00pm. This application is entirely student-run and continuously being updated so please send us your
 									  feedback by replying to this email.</p>`,
