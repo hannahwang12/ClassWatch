@@ -12,7 +12,8 @@ class SubmitComponent extends Component {
     this.setState({submitted: true});
   }
 
-  exit = () => {
+  exit = (e) => {
+    e.preventDefault();
     this.props.exit();
     this.setState({submitted: false});
   }
