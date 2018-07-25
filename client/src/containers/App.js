@@ -101,12 +101,12 @@ class App extends Component {
             <div onClick={this.clickHelp}><FontAwesomeIcon className="questionMark" icon="question"/></div>
           </div>
         }
-        <div className="remove">
-              <HelpComponent display={this.state.helpModal} exit={this.exitHelp}/>
-            </div>
+        <div>
+          <HelpComponent display={this.state.helpModal} exit={this.exitHelp}/>
+        </div>
         <div className="remove">
           <RemoveComponent display={this.state.removeDialog} exit={this.exitRemove}/>
-        </div>       
+        </div>
         {this.state.searched ? <ResultsContainer searching={this.state.searching} searched={this.state.searched} results={this.results} handleSubmit={this.handleSubmit} clickOut={this.state.clickOut} changeSeason={this.changeSeason} searchQuery={this.searchQuery}/> : null}
       </div>
     );

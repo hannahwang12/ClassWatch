@@ -14,7 +14,7 @@ body {
 }
 
 .title {
-  font-size: 500%;
+  font-size: 84px;
   color: white;
   font-family: 'Montserrat';
   font-weight: bold;
@@ -26,14 +26,14 @@ body {
 }
 
 .select-term {
-  width: 15em;
+  width: 16px;
   position: fixed;
   top: 2em;
   left: 2em;
 }
 
 .home input {
-  font-size: 250%;
+  font-size: 40px;
   color: white;
   background: transparent;
   font-family: 'Montserrat';
@@ -133,6 +133,8 @@ input:focus {
   background-attachment:fixed;
   background-size:cover;
   background-position: center; 
+  margin: 0;
+  padding: 0;
 }
 
 .overlay {
@@ -146,7 +148,7 @@ input:focus {
 
 .removeButton {
   position: fixed;
-  bottom: 10vh;
+  top: 85vh;
   left: 50%;
   transform: translate(-50%, 0);
   color: rgba(255, 255, 255, 0.8);
@@ -426,4 +428,127 @@ button {
   font-family: 'Montserrat';
   border: none;
   text-align: center;
+}
+
+@media screen and (max-width: 450px) {
+  .body {
+    overflow: hidden;
+  }
+
+  .home {
+    overflow: hidden;
+  }
+
+  .title {
+    font-size: 52px;
+  }
+
+  .home input {
+    font-size: 22px;
+  }
+
+  .searchIcon {
+    font-size: 22px;
+  }
+
+  .loader {
+    border: 3px solid rgba(255, 255, 255, 0.35);
+    border-top: 3px solid white;
+    width: 15px;
+    height: 15px;
+    right: 10px;
+    top: 10%;
+  }
+
+  .select-term {
+    font-size: 12px;
+  }
+
+  .questionMark {
+    font-size: 20px;
+  }
+
+  button {
+    font-size: 12px;
+  }
+
+  .resultsPage {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 5vw;
+    margin-top: 70px;
+    width: fit-content !important;
+    height: fit-content !important;
+    overflow: auto;
+    z-index: 1000;
+  }
+  
+  .results {
+    font-size: 11px;
+    margin-left: 1vw;
+    margin-right: 1vw;
+    z-index: 1000;
+  }
+
+  .table {
+    font-size: 11px;
+  }
+
+  .container {
+    font-size: 12px;
+  }
+  
+  .checkmark {
+    height: 14px;
+    width: 14px;
+  }
+
+  .helpModal {
+    background-color: rgba(0, 0, 0, 0.80);
+    width: 70vw;
+    padding: 1.5em;
+  }
+  
+  .helpModal p {
+    font-size: 14px;
+  }
+
+  .close {
+    margin: 2vw 3vw;
+    line-height: 1;
+  }
+
+  .removeDialog {
+    width: 80vw;
+    height: 20vh;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 4px;
+  }
+  
+  .removeDialog input {
+    font-size: 22px;
+    width: 65vw;
+    margin: 1vh 1vw;
+  }
+
+  .submitDialog {
+    width: 80vw;
+    height: 20vh;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 4px;
+  }
+  
+  .submitDialog input {
+    font-size: 22px;
+    width: 65vw;
+    margin: 1vh 1vw;
+  }
 }
