@@ -245,7 +245,7 @@ function checkCourses() {
 					if (temp_results[j].reserve == null && (temp_results[j].enrol_total < temp_results[j].enrol_cap)) {
 						for (var n = 0; n < emails_len; ++n) {
 							const mailOptions = {
-								from: 'uw.classwatch.notif@gmail.com',
+								from: 'postmaster@uwclasswatch.com',
 								to: emails[n],
 								subject: "There's space for you in " + course_names[i] + ": " + sections_to_check[contains] + "!",
 								html: `<p style="font-size: 16px">The enrolment capacity for this class is currently ` + temp_results[j].enrol_total + `/` + temp_results[j].enrol_cap + `.
