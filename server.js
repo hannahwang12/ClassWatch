@@ -152,13 +152,33 @@ function waitForEvent( eventEmitter, eventType ) {
 };
 */
 
-function moveFbRecord(oldRef, newRef) {    
-     oldRef.once('value', function(snap)  {
-          newRef.update( snap.val(), function(error) {
-               if( !error ) {  oldRef.remove(); }
-               else if( typeof(console) !== 'undefined' && console.error ) {  console.error(error); }
-          });
-     });
+function moveFbRecord(oldRef, newRef) {
+	var name;
+	var sections = new Array();
+	var info = new Array();
+	var email;
+	var temp;
+	oldRef.once('value', async function(snap)  {
+		name = Object.keys(snap.val())[0];
+		console.log(name);
+		// returns an array of all keys
+		snap.forEach(function(elem) {
+			info.push(elem.val());
+		});
+		email = Object.values(Object.values(Object.values(info)[0])[0])[0];
+		sections = Object.keys(info[0]);
+		console.log(email);
+		console.log(sections);
+		var len = sections.length;
+
+		for (var i = 0; i < len; ++i) {
+			newRef.child(name).child(sections[i]).push(email);
+			console.log(sections[i]);
+		}
+	 	oldRef.remove();
+	});
+
+		//verify_links.child(num).child(name).child(sections[i]).push(email);
 }
 
 function send_verification( email, name, sections, num ) {
@@ -287,7 +307,7 @@ function customSchedule() {
 	// setTimeout(customSchedule, 1000 * 60);
 }
 
-setInterval(customSchedule, 1000 * 60);
+// setInterval(customSchedule, 1000 * 60);
 
 
 /*
