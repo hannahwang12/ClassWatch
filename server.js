@@ -43,10 +43,10 @@ const verify_links = firebase.app().database().ref().child("verify_links");
 // NODEMAILER
 // ------------------------
 const transporter = nodemailer.createTransport({
-	service: 'gmail',
+	service: 'Mailgun',
 	auth: {
-		user: 'uw.classwatch.notif@gmail.com',
-		pass: 'UWclasswatch!'
+		user: 'postmaster@uwclasswatch.com',
+		pass: '1578b785173498d16d4f54355828593d-3b1f59cf-ebe2332a'
 	}
 });
 
@@ -164,7 +164,7 @@ function moveFbRecord(oldRef, newRef) {
 function send_verification( email, name, sections, num ) {
 	const link = url + "/verify?hash=" + num;
 	const mailOptions = {
-								from: 'uw.classwatch.notif@gmail.com',
+								from: 'postmaster@uwclasswatch.com',
 								to: email,
 								subject: "Verify your choice!",
 								html: `<p style="font-size: 16px">You have requested to watch the following sections of ` + name + `: ` + sections + `</p>
@@ -249,7 +249,7 @@ function checkCourses() {
 					} else if (temp_results[j] != null && (temp_results[j].reserve_enrol_total < temp_results[j].reserve_enrol_cap)) {
 						for (var n = 0; n < emails_len; ++n) {
 							const mailOptions = {
-								from: 'uw.classwatch.notif@gmail.com',
+								from: 'postmaster@uwclasswatch.com',
 								to: emails[n],
 								subject: "There's space for you in " + course_names[i] + ": " + sections_to_check[contains],
 								html: `<p style="font-size: 16px">The enrolment capacity for this class is currently ` +  temp_results[j].reserve_enrol_total + `/` + temp_results[j].reserve_enrol_cap + `.
