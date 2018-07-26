@@ -93,7 +93,7 @@ server.post("/track", async (req, res) => {
 
 server.post("/remove", async (req, res) => {
 	let remove_info = req.body.code.split('|');
-	let del_ref = firebase.app().database().ref().child(remove_info[1]).child(remove_info[2]).child(remove_info[0]);	
+	let del_ref = tracked_courses.child(remove_info[1]).child(remove_info[2]).child(remove_info[0]);	
 	del_ref.remove();
 	res.sendStatus(200);
 });
@@ -160,20 +160,16 @@ function moveFbRecord(oldRef, newRef) {
 	var temp;
 	oldRef.once('value', async function(snap)  {
 		name = Object.keys(snap.val())[0];
-		console.log(name);
 		// returns an array of all keys
 		snap.forEach(function(elem) {
 			info.push(elem.val());
 		});
 		email = Object.values(Object.values(Object.values(info)[0])[0])[0];
 		sections = Object.keys(info[0]);
-		console.log(email);
-		console.log(sections);
 		var len = sections.length;
 
 		for (var i = 0; i < len; ++i) {
 			newRef.child(name).child(sections[i]).push(email);
-			console.log(sections[i]);
 		}
 	 	oldRef.remove();
 	});
