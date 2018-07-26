@@ -430,6 +430,46 @@ button {
   text-align: center;
 }
 
+.sorry {
+  width: 33%;
+  border-radius: 0.5em;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  top: 2em;
+}
+
+.sorry p {
+  font-size: 20px;
+  display: inline-block;
+  width: 100%;
+  color: white;
+  background: transparent;
+  font-family: 'Montserrat';
+  border: none;
+  text-align: center;
+}
+
+@media screen and (max-width: 900px) {
+  .sorry {
+    width: 65%;
+    border-radius: 0.5em;
+    background-color: rgba(0, 0, 0, 0.5);
+    position: absolute;
+    top: 2em;
+  }
+
+  .sorry p {
+    font-size: 17px;
+    display: inline-block;
+    width: 100%;
+    color: white;
+    background: transparent;
+    font-family: 'Montserrat';
+    border: none;
+    text-align: center;
+  }
+}
+
 @media screen and (max-width: 450px) {
   .body {
     overflow: hidden;
@@ -550,5 +590,24 @@ button {
     font-size: 22px;
     width: 65vw;
     margin: 1vh 1vw;
+  }
+
+  .sorry {
+    width: 80%;
+    border-radius: 0.5em;
+    background-color: rgba(0, 0, 0, 0.5);
+    position: absolute;
+    top: 2em;
+  }
+
+  .sorry p {
+    font-size: 16px;
+    display: inline-block;
+    width: 100%;
+    color: white;
+    background: transparent;
+    font-family: 'Montserrat';
+    border: none;
+    text-align: center;
   }
 }
