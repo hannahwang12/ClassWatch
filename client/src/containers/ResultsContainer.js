@@ -50,8 +50,42 @@ class ResultsContainer extends Component {
     for (var i = 0; i < clist.length; ++i) { clist[i].checked = false; }
   }
 
+  update_results(results) {
+    let newResults = [];
+    for (let i = 0; i < results.length; i++) {
+      // if current section isn't reserve and next one exists and is reserve
+      if (!results[i].reserve && results[i + 1] && results[i + 1].reserve) {
+        var reserve_enrol_total = 0;
+        var reserve_enrol_cap = 0;
+        let temp_index = i + 1;
+        while (results[temp_index] && results[temp_index].reserve) {
+          reserve_enrol_cap += results[temp_index].reserve_enrol_cap;
+          reserve_enrol_total += results[temp_index].reserve_enrol_total;
+          temp_index++;
+        }
+        newResults.push(results[i]);
+        if (results[i].enrol_cap - reserve_enrol_cap > 0) {
+          newResults.push({
+            section: `${results[i].section} RES0`,
+            reserve: 'Not reserved',
+            reserve_enrol_cap: results[i].enrol_cap - reserve_enrol_cap,
+            reserve_enrol_total: results[i].enrol_total - reserve_enrol_total,
+            instructor: results[i].instructor,
+            time: results[i].time,
+            days: results[i].days,
+            date: results[i].date,
+          });
+        }
+      } else {
+        newResults.push(results[i]);
+      }
+    }
+    return newResults;
+  }
+
   render() {
     const results = this.props.results;
+    const newResults = this.update_results(results);
     const course_name = results[0].course_code;
     const term = results[0].term;
     const season = this.get_season(term);
@@ -84,7 +118,7 @@ class ResultsContainer extends Component {
                   </tr>
                 </thead>
                 <tbody>
-                    {results.map((elem) => <RowComponent row={elem}/>)}
+                    {newResults.map((elem) => <RowComponent row={elem}/>)}
                 </tbody>
               </table>
               <button className="button" onClick={ this.watchClasses }>Watch</button>
