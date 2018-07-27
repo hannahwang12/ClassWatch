@@ -95,8 +95,7 @@ class App extends Component {
         {this.state.searched ? null : 
         <div className="sorry">
           <p>
-          Hey all, we've been having some issues with both our servers (we pushed some questionable code sorry!) and our mailing (Gmail flagging our account as spam). <br/> Huge apologies to anyone who was having issues with this. <strong>We'll be turning the whole mailing/watching
-          bit off</strong> until we get all this stuff resolved. Sorry everyone!
+            Quick update: We're now waiting on validation from our new mailing provider. Once we have that, everything should be back up and running.
           </p>
         </div>
         }
