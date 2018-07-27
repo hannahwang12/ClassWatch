@@ -10,6 +10,7 @@ const scraper = require('./scraper.js');
 const firebase = require('firebase');
 const events = require('events');
 const nodemailer = require('nodemailer');
+const mailgun = require('./mailgun_auth.js');
 const moment = require('moment-timezone');
 
 const url = "http://www.uwclasswatch.com";
@@ -43,11 +44,8 @@ const verify_links = firebase.app().database().ref().child("verify_links");
 // NODEMAILER
 // ------------------------
 const transporter = nodemailer.createTransport({
-	service: 'gmail',
-	auth: {
-		user: 'uw.classwatch.notif@gmail.com',
-		pass: 'UWclasswatch!'
-	}
+	service: 'Mailgun',
+	auth: mailgun.mailgun_auth,
 });
 
 // Heroku deployment
@@ -180,7 +178,7 @@ function moveFbRecord(oldRef, newRef) {
 function send_verification( email, name, sections, num ) {
 	const link = url + "/verify?hash=" + num;
 	const mailOptions = {
-								from: 'uw.classwatch.notif@gmail.com',
+								from: 'postmaster@uwclasswatch.com',
 								to: email,
 								subject: "Verify your choice!",
 								html: `<p style="font-size: 16px">You have requested to watch the following sections of ` + name + `: ` + sections + `</p>
@@ -245,7 +243,7 @@ function checkCourses() {
 					if (temp_results[j].reserve == null && (temp_results[j].enrol_total < temp_results[j].enrol_cap)) {
 						for (var n = 0; n < emails_len; ++n) {
 							const mailOptions = {
-								from: 'uw.classwatch.notif@gmail.com',
+								from: 'postmaster@uwclasswatch.com',
 								to: emails[n],
 								subject: "There's space for you in " + course_names[i] + ": " + sections_to_check[contains] + "!",
 								html: `<p style="font-size: 16px">The enrolment capacity for this class is currently ` + temp_results[j].enrol_total + `/` + temp_results[j].enrol_cap + `.
@@ -265,7 +263,7 @@ function checkCourses() {
 					} else if (temp_results[j] != null && (temp_results[j].reserve_enrol_total < temp_results[j].reserve_enrol_cap)) {
 						for (var n = 0; n < emails_len; ++n) {
 							const mailOptions = {
-								from: 'uw.classwatch.notif@gmail.com',
+								from: 'postmaster@uwclasswatch.com',
 								to: emails[n],
 								subject: "There's space for you in " + course_names[i] + ": " + sections_to_check[contains],
 								html: `<p style="font-size: 16px">The enrolment capacity for this class is currently ` +  temp_results[j].reserve_enrol_total + `/` + temp_results[j].reserve_enrol_cap + `.
