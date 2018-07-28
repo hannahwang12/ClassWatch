@@ -92,13 +92,13 @@ class App extends Component {
         <div className="backgroundImg" id="fall">
         </div>
         
-        {this.state.searched ? null : 
+        {/*this.state.searched ? null : 
         <div className="sorry">
           <p>
             Quick update: We're now waiting on validation from our new mailing provider. Once we have that, everything should be back up and running.
           </p>
         </div>
-        }
+        */}
         
         {this.state.searched ? null : 
           <div className="search">
