@@ -184,7 +184,7 @@ function send_verification( email, name, sections, num ) {
 								html: `<p style="font-size: 16px">You have requested to watch the following sections of ` + name + `: ` + sections + `</p>
 									  <p style="font-size: 15px">Please <a href=` + link + `>click on the link</a> to verify your email.</p>
 									  <p><a href='http://uwclasswatch.com/'>ClassWatch</a> works by scraping UWaterloo's publicly available enrolment numbers, which are updated every half hour between 8:00am and 8:00pm. This application is entirely student-run and continuously being updated so please send us your
-									  feedback by replying to this email.</p>`,
+									  feedback to uw.classwatch.notif@gmail.com.</p>`,
 							};
 	transporter.sendMail(mailOptions, function(error, info){
 		if (error) {
@@ -207,8 +207,10 @@ function contains_elem( elem, array ) {
 function checkCourses() {
 	var course_names = new Array();
 	var course_info = new Array();
+	//firebase.app().database().ref().child("test").once('value', async function(data) {
 	tracked_courses.once('value', async function(data) {
 		course_names = Object.keys(data.val());
+		//console.log(course_names);
 		// returns an array of all keys
 		data.forEach(function(elem) {
 			course_info.push(elem.val());
@@ -219,7 +221,7 @@ function checkCourses() {
 		for (var i = 0; i < num_courses; ++i) {
 			const subject = course_names[i].match(/[A-z]+/)[0].trim();
 			const course_number = course_names[i].match(/\d+./)[0].trim();
-			let temp_results = await scraper.go_to_page(1179, subject, course_number);
+			let temp_results = await scraper.go_to_page(1189, subject, course_number);
 			var num_sections = temp_results.length;
 
 			// The section names are the keys of the course object
@@ -242,6 +244,7 @@ function checkCourses() {
 					var emails_len = emails.length;
 					if (temp_results[j].reserve == null && (temp_results[j].enrol_total < temp_results[j].enrol_cap)) {
 						for (var n = 0; n < emails_len; ++n) {
+							//console.log(emails[n]);
 							const mailOptions = {
 								from: 'postmaster@uwclasswatch.com',
 								to: emails[n],
@@ -250,7 +253,7 @@ function checkCourses() {
 									  \nTo stop receiving notifications about this class, enter your removal code at <a href='http://www.uwclasswatch.com/'>UWClasswatch</a>.</p>
 									  <p style="font-size: 15px">Your code for this class is: ` + remove_codes[n] + `|` + course_names[i] + `|` + sections_to_check[contains] + `</p>
 									  <p><a href='http://uwclasswatch.com/'>UWClassWatch</a> works by scraping UWaterloo's publicly available enrolment numbers, which are updated every half hour between 8:00am and 8:00pm. This application is entirely student-run and continuously being updated so please send us your
-									  feedback by replying to this email.</p>`,
+									  feedback to uw.classwatch.notif@gmail.com.</p>`,
 							};
 
 							transporter.sendMail(mailOptions, function(error, info){
@@ -270,7 +273,7 @@ function checkCourses() {
 									  \nTo stop receiving notifications about this class, enter your removal code at <a href='http://www.uwclasswatch.com/'>UWClasswatch</a>.</p>
 									  <p style="font-size: 15px">Your code for this class is: ` + remove_codes[n] + `|` + course_names[i] + `|` + sections_to_check[contains] + `</p>
 									  <p><a href='http://uwclasswatch.com/'>UWClassWatch</a> works by scraping UWaterloo's publicly available enrolment numbers, which are updated every half hour between 8:00am and 8:00pm. This application is entirely student-run and continuously being updated so please send us your
-									  feedback by replying to this email.</p>`,
+									  feedback to uw.classwatch.notif@gmail.com.</p>`,
 							};
 
 							transporter.sendMail(mailOptions, function(error, info){
@@ -293,15 +296,15 @@ function customSchedule() {
 	let minutes = moment().minutes();
 
 	//  1,800,000 is 30 minutes in milliseconds, so if an interval of 30 minutes has passed since that date, we trigger
-	if (hours >= 8 && hours <= 20 && minutes % 30 <= 1) {
+	if (hours >= 8 && hours <= 20 && minutes % 30 < 1) {
 		checkCourses();
 	}
 
 	// Fire the next time in 1min
-	// setTimeout(customSchedule, 1000 * 60);
+	//setTimeout(customSchedule, 1000 * 60);
 }
 
-// setInterval(customSchedule, 1000 * 60);
+setInterval(customSchedule, 1000 * 60);
 
 
 /*
