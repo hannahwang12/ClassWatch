@@ -419,8 +419,8 @@ button {
   cursor: pointer;
 }
 
-.verification-text {
-  font-size: 30px;
+.response-text {
+  font-size: 24px;
   display: inline-block;
   width: 100%;
   color: white;

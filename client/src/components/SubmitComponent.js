@@ -23,7 +23,7 @@ class SubmitComponent extends Component {
       <div>
         <p className="close" onClick={this.props.exit}>×</p>
         <input name="email" type="text" placeholder="enter your email" autoComplete="off" style={{display: this.state.submitted?"none":"inline-block"}}></input>
-        <p className="verification-text" style={{display: this.state.submitted?"inline-block":"none"}}>Verification email sent!</p>
+        <p className="response-text" style={{display: this.state.submitted?"inline-block":"none"}}>Verification email sent!</p>
         <button onClick={this.submit} style={{display: this.state.submitted?"none":"inline-block"}}>Submit</button>
         <button onClick={this.exit} style={{display: this.state.submitted?"inline-block":"none"}}>Got it!</button>
       </div>
