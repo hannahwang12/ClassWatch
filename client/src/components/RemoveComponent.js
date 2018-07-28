@@ -13,6 +13,7 @@ class RemoveComponent extends Component {
   }
 
   exit = (e) => {
+    e.preventDefault();
     e.stopPropagation();
     this.props.exit();
     this.setState({ submitted: false });
