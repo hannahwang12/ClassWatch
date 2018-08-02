@@ -1,1 +1,1 @@
-Try it here: http://classwatch.ca-central-1.elasticbeanstalk.com/
+Try it here: www.uwclasswatch.com
