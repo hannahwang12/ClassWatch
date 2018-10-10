@@ -6,13 +6,14 @@ class RowComponent extends Component {
   }
 
   render() {
+    console.log(this.props.term);
     const rowData = this.props.row;
     if (rowData.reserve && rowData.date) {
-      console.log('date');
+      //console.log('date');
       return (
         <tr className="reserveRow">
           <td>
-            <label className="container">
+            <label className="container" style={{ display: this.props.term }}>
                 <input className="checkbox" type="checkbox" name="sections[]" value={rowData.section}/>
                 <span className="checkmark"></span>
             </label>
@@ -30,7 +31,7 @@ class RowComponent extends Component {
       return (
         <tr className="reserveRow">
           <td>
-            <label className="container">
+            <label className="container" style={{ display: this.props.term }}>
                 <input className="checkbox" type="checkbox" name="sections[]" value={rowData.section}/>
                 <span className="checkmark"></span>
             </label>
@@ -55,7 +56,7 @@ class RowComponent extends Component {
       return (
         <tr>
           <td>
-            <label className="container">
+            <label className="container" style={{ display: this.props.term }}>
                 <input className="checkbox" type="checkbox" name="sections[]" value={rowData.section}/>
                 <span className="checkmark"></span>
             </label>
