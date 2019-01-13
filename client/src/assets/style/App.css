@@ -104,6 +104,8 @@ input:focus {
 }
 
 #winter {
+  /* Initialize background image*/
+  opacity: 1.0;
   background: url('../img/winter.jpg');
   height: 100vh;
   width: 100vw;
@@ -124,8 +126,6 @@ input:focus {
 }
 
 #fall {
-  /* Initialize background image*/
-  opacity: 1.0;
   background: url('../img/fall.jpg');
   height: 100vh;
   width: 100vw;

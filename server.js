@@ -11,6 +11,7 @@ const firebase = require('firebase');
 const events = require('events');
 const nodemailer = require('nodemailer');
 const mailgun = require('./mailgun_auth.js');
+const mailgunTransport = require('nodemailer-mailgun-transport')
 const moment = require('moment-timezone');
 
 const url = "http://www.uwclasswatch.com";
@@ -43,10 +44,16 @@ const verify_links = firebase.app().database().ref().child("verify_links");
 // ------------------------
 // NODEMAILER
 // ------------------------
-const transporter = nodemailer.createTransport({
-	service: 'Mailgun',
-	auth: mailgun.mailgun_auth,
-});
+const mailgunOptions = {
+	auth: {
+		api_key: mailgun.api_key,
+		domain:	"uwclasswatch.com"
+	}
+}
+
+const mgtransport = mailgunTransport(mailgunOptions);
+
+const transporter = nodemailer.createTransport(mgtransport);
 
 // Heroku deployment
 server.use(bodyParser.urlencoded({ extended: true })); 
