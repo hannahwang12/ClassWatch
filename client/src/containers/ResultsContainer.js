@@ -119,7 +119,7 @@ class ResultsContainer extends Component {
                   </tr>
                 </thead>
                 <tbody>
-                    {newResults.map((elem) => <RowComponent row={elem} term={term == '1191'?'block':'none'}/>)}
+                    {newResults.map((elem) => <RowComponent row={elem} term={term == '1199'?'block':'none'}/>)}
                 </tbody>
               </table>
               <button className="button" onClick={ this.watchClasses }>Watch</button>

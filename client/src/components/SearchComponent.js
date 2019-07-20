@@ -12,7 +12,7 @@ class SearchComponent extends Component {
     super(props);
     this.state = {
       value: "",
-      term: "1191",
+      term: "1199",
     };
   } 
 
@@ -96,16 +96,16 @@ class SearchComponent extends Component {
           </select>*/}
           <Select className="select-term"
                   name="term"
-                  defaultValue={{value: '1191', label: 'Winter 2019'}}
+                  defaultValue={{value: '1199', label: 'Fall 2019'}}
                   onChange={this.termChange}
                   onKeyDown={this.onKeyDown}
                   isSearchable={false}
                   isClearable={false}
                   styles={customStyles}
-                  options={[{value: '1185', label: 'Spring 2018'}, 
-                            {value: '1189', label: 'Fall 2018'},
+                  options={[{value: '1189', label: 'Fall 2018'},
                             {value: '1191', label: 'Winter 2019'},
-                            {value: '1195', label: 'Spring 2019'}]}/>
+                            {value: '1195', label: 'Spring 2019'},
+                            {value: '1199', label: 'Fall 2019'}]}/>
           <input name="course" type="text" className="search" placeholder="enter a course code" value={this.state.value} onChange={this.handleChange} autoComplete="off"/>
           {this.props.searching ? <div className="loader"></div> : <FontAwesomeIcon onClick={this.submitForm} className="searchIcon" icon="search" size="2x"/>}
         {/*</form>*/}

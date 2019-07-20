@@ -228,7 +228,7 @@ function checkCourses() {
 		for (var i = 0; i < num_courses; ++i) {
 			const subject = course_names[i].match(/[A-z]+/)[0].trim();
 			const course_number = course_names[i].match(/\d+./)[0].trim();
-			let temp_results = await scraper.go_to_page(1189, subject, course_number);
+			let temp_results = await scraper.go_to_page(1199, subject, course_number);
 			var num_sections = temp_results.length;
 
 			// The section names are the keys of the course object
@@ -304,11 +304,11 @@ function customSchedule() {
 
 	//  1,800,000 is 30 minutes in milliseconds, so if an interval of 30 minutes has passed since that date, we trigger
 	if (hours >= 8 && hours <= 20 && minutes % 30 < 1) {
-		checkCourses();
+		//checkCourses();
 	}
 
 	// Fire the next time in 1min
-	//setTimeout(customSchedule, 1000 * 60);
+	setTimeout(customSchedule, 1000 * 60);
 }
 
 setInterval(customSchedule, 1000 * 60);
