@@ -32,6 +32,10 @@ body {
   left: 2em;
 }
 
+.select-term__value-container {
+  height: 100%;
+}
+
 .home input {
   font-size: 40px;
   color: white;
@@ -499,10 +503,6 @@ button {
     height: 15px;
     right: 10px;
     top: 10%;
-  }
-
-  .select-term {
-    font-size: 12px;
   }
 
   .questionMark {
